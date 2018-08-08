@@ -1,7 +1,7 @@
 # Личный проект «Пиксель хантер» [![Build status][travis-image]][travis-url]
 
 * Студент: [Алексей Васильев](https://up.htmlacademy.ru/ecmascript/6/user/372785).
-* Наставник: `Неизвестно`.
+* Наставник: [Дмитрий Спиридонов](https://htmlacademy.ru/profile/sydd).
 
 ---
 
