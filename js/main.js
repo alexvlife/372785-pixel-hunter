@@ -1,5 +1,7 @@
-const RIGHT_ARROW = 37;
-const LEFT_ARROW = 39;
+const MAIN_SCREEN = 1;
+const RIGHT_ARROW_KEYCODE = 37;
+const LEFT_ARROW_KEYCODE = 39;
+const arrowBtnElems = document.querySelectorAll(`.arrows__btn`);
 
 const gameField = document.querySelector(`#main`);
 
@@ -22,13 +24,27 @@ const selectScreen = (index) => {
 
 document.addEventListener(`keydown`, (evt) => {
   switch (evt.keyCode) {
-    case RIGHT_ARROW:
+    case RIGHT_ARROW_KEYCODE:
       selectScreen(currentScreen + 1);
       break;
-    case LEFT_ARROW:
+    case LEFT_ARROW_KEYCODE:
       selectScreen(currentScreen - 1);
       break;
   }
 });
 
-selectScreen(1);
+for (let i = 0; i < arrowBtnElems.length; i++) {
+  arrowBtnElems[i].addEventListener('click', (evt) => {
+    switch (evt.target.name) {
+      case `arrow-right`:
+        selectScreen(currentScreen + 1);
+        break;
+      case `arrow-left`:
+        selectScreen(currentScreen - 1);
+        break;
+    }
+    evt.preventDefault();
+  });
+}
+
+selectScreen(MAIN_SCREEN);
