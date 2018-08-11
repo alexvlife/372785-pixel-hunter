@@ -1,3 +1,5 @@
+'use strict';
+
 const MAIN_SCREEN = 1;
 const RIGHT_ARROW_KEYCODE = 37;
 const LEFT_ARROW_KEYCODE = 39;
@@ -8,7 +10,7 @@ const gameField = document.querySelector(`#main`);
 const showScreen = (el) => {
   gameField.innerHTML = ``;
   gameField.appendChild(el.cloneNode(true));
-}
+};
 
 const screens = Array.from(document.querySelectorAll(`template`))
                      .map((item) => item.content);
@@ -20,7 +22,7 @@ const selectScreen = (index) => {
   index = index >= screens.length ? 0 : index;
   currentScreen = index;
   showScreen(screens[currentScreen]);
-}
+};
 
 document.addEventListener(`keydown`, (evt) => {
   switch (evt.keyCode) {
@@ -34,7 +36,7 @@ document.addEventListener(`keydown`, (evt) => {
 });
 
 for (let i = 0; i < arrowBtnElems.length; i++) {
-  arrowBtnElems[i].addEventListener('click', (evt) => {
+  arrowBtnElems[i].addEventListener(`click`, (evt) => {
     switch (evt.target.name) {
       case `arrow-right`:
         selectScreen(currentScreen + 1);
