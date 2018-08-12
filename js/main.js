@@ -1,5 +1,3 @@
-'use strict';
-
 const MAIN_SCREEN_ID = 1;
 
 const gameField = document.querySelector(`#main`);
