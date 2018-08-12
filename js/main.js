@@ -12,8 +12,7 @@ const showScreen = (el) => {
 const screens = Array.from(document.querySelectorAll(`template`))
                      .map((item) => item.content);
 
-let currentScreen = MAIN_SCREEN_ID,
-    switchValue = 0;
+let currentScreen = MAIN_SCREEN_ID;
 
 const selectScreen = (index) => {
   index = index < 0 ? screens.length - 1 : index;
@@ -25,13 +24,12 @@ const selectScreen = (index) => {
 document.addEventListener(`keydown`, (evt) => {
   switch (evt.code) {
     case `ArrowRight`:
-      switchValue = 1;
+      selectScreen(currentScreen + 1);
       break;
     case `ArrowLeft`:
-      switchValue = -1;
+      selectScreen(currentScreen - 1);
       break;
   }
-  selectScreen(currentScreen + switchValue);
 });
 
 const arrowsWrapEl = document.createElement(`div`);
@@ -55,7 +53,7 @@ arrowsWrapEl.innerHTML = `<style>
 document.body.appendChild(arrowsWrapEl);
 
 arrowsWrapEl.addEventListener(`click`, (evt) => {
-  switchValue = parseInt(evt.target.value, 10);
+  let switchValue = parseInt(evt.target.value, 10);
   selectScreen(currentScreen + switchValue);
 });
 
