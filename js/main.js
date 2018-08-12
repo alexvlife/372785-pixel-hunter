@@ -1,9 +1,6 @@
 'use strict';
 
-const MAIN_SCREEN = 1;
-const RIGHT_ARROW_KEYCODE = 37;
-const LEFT_ARROW_KEYCODE = 39;
-const arrowBtnElems = document.querySelectorAll(`.arrows__btn`);
+const MAIN_SCREEN_ID = 1;
 
 const gameField = document.querySelector(`#main`);
 
@@ -15,7 +12,8 @@ const showScreen = (el) => {
 const screens = Array.from(document.querySelectorAll(`template`))
                      .map((item) => item.content);
 
-let currentScreen = 0;
+let currentScreen = MAIN_SCREEN_ID,
+    switchValue = 0;
 
 const selectScreen = (index) => {
   index = index < 0 ? screens.length - 1 : index;
@@ -25,28 +23,40 @@ const selectScreen = (index) => {
 };
 
 document.addEventListener(`keydown`, (evt) => {
-  switch (evt.keyCode) {
-    case RIGHT_ARROW_KEYCODE:
-      selectScreen(currentScreen + 1);
+  switch (evt.code) {
+    case `ArrowRight`:
+      switchValue = 1;
       break;
-    case LEFT_ARROW_KEYCODE:
-      selectScreen(currentScreen - 1);
+    case `ArrowLeft`:
+      switchValue = -1;
       break;
   }
+  selectScreen(currentScreen + switchValue);
 });
 
-for (let i = 0; i < arrowBtnElems.length; i++) {
-  arrowBtnElems[i].addEventListener(`click`, (evt) => {
-    switch (evt.target.name) {
-      case `arrow-right`:
-        selectScreen(currentScreen + 1);
-        break;
-      case `arrow-left`:
-        selectScreen(currentScreen - 1);
-        break;
-    }
-    evt.preventDefault();
-  });
-}
+const arrowsWrapEl = document.createElement(`div`);
+arrowsWrapEl.className = `arrows__wrap`;
+arrowsWrapEl.innerHTML = `<style>
+                        .arrows__wrap {
+                          position: absolute;
+                          top: 95px;
+                          left: 50%;
+                          margin-left: -56px;
+                        }
+                        .arrows__btn {
+                          background: none;
+                          border: 2px solid black;
+                          padding: 5px 20px;
+                        }
+                      </style>
+                      <button type="button" class="arrows__btn" value="-1"><-</button>
+                      <button type="button" class="arrows__btn" value="1">-></button>`;
 
-selectScreen(MAIN_SCREEN);
+document.body.appendChild(arrowsWrapEl);
+
+arrowsWrapEl.addEventListener(`click`, (evt) => {
+  switchValue = parseInt(evt.target.value, 10);
+  selectScreen(currentScreen + switchValue);
+});
+
+selectScreen(currentScreen);
