@@ -50,9 +50,9 @@ const game2ScreenTemplate = `<header class="header">
 
 const game2ScreenElement = render(game2ScreenTemplate);
 
-const elGameContent = game2ScreenElement.querySelector(`.game__content`);
+const gameContent = game2ScreenElement.querySelector(`.game__content`);
 
-elGameContent.addEventListener(`input`, () => {
+gameContent.addEventListener(`input`, () => {
   showScreen(game3);
 });
 

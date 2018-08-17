@@ -61,9 +61,9 @@ const game1ScreenTemplate = `<header class="header">
 
 const game1ScreenElement = render(game1ScreenTemplate);
 
-const elGameContent = game1ScreenElement.querySelector(`.game__content`);
+const gameContent = game1ScreenElement.querySelector(`.game__content`);
 
-elGameContent.addEventListener(`input`, () => {
+gameContent.addEventListener(`input`, () => {
   const answers = document.querySelectorAll(`input[type=radio]:checked`);
   if (answers.length === 2) {
     showScreen(game2);
