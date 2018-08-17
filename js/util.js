@@ -1,7 +1,7 @@
-export const render = (tpl) => {
-  const elWrapper = document.createElement(`div`);
-  elWrapper.innerHTML = tpl.trim();
-  return elWrapper;
+export const render = (template) => {
+  const wrapperElement = document.createElement(`div`);
+  wrapperElement.innerHTML = template.trim();
+  return wrapperElement;
 };
 
 const gameField = document.querySelector(`#main`);
