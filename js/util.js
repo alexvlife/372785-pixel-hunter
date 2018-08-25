@@ -1,4 +1,4 @@
-// import {gameRules} from './game-data/game-data';
+import {gameRules} from './game-data/game-data';
 
 export const render = (template) => {
   const wrapperElement = document.createElement(`div`);
@@ -22,18 +22,24 @@ export const gameStore = {
   score: 0
 };
 
-// export const questionTimer = (answer) => {
+export const questionTimer = (timer) => {
 
-//   function interval() {
-//     answer.time += 1;
-//     if (answer.time === gameRules.answerTime.limit) {
-//       clearInterval(intervalID);
-//       switchGameLevel();
-//     }
-//   }
-//   let intervalID = setInterval(interval, 1000);
-//   return answer.time;
-// };
+  const limit = timer.limit * 1000;
+  // начать повторы с интервалом 1 сек.
+  let timerId = setInterval(() => {
+    timer.tick();
+  }, 1000);
+
+  const stop = () => {
+    clearInterval(timerId);
+    alert(`Время на данный вопрос истекло..`);
+  };
+
+  // через limit сек. остановить повторы
+  setTimeout(() => {
+    stop();
+  }, limit);
+};
 
 export const switchGameLevel = () => {
   if (gameStore.livesBalance < 0 || gameStore.currentLevel === gameStore.maxLevel) {
