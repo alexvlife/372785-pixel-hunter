@@ -10,9 +10,22 @@ export const showScreen = (el) => {
   gameField.appendChild(el);
 };
 
+export const gameLevels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 export const gameStore = {
   livesBalance: 3,
+  minLevel: 1,
+  currentLevel: 1,
+  maxLevel: gameLevels.length,
   score: 0
+};
+
+export const switchGameLevel = () => {
+  if (gameStore.livesBalance < 0 || gameStore.currentLevel === gameStore.maxLevel) {
+    return -1;
+  }
+  gameStore.currentLevel += 1;
+  return gameStore.currentLevel;
 };
 
 export const calcLivesBalance = (currentAnswer) => {

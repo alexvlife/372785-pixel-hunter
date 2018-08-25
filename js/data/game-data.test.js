@@ -4,6 +4,7 @@ import {Answer} from '../models/answer';
 import {gameStore} from '../util';
 import {calcGameScore} from '../util';
 import {calcLivesBalance} from '../util';
+import {switchGameLevel} from '../util';
 
 describe(`Game`, () => {
   describe(`Scoring function - calcGameScore`, () => {
@@ -76,6 +77,23 @@ describe(`Game`, () => {
       gameStore.livesBalance = 3;
       const currentAnswer = new Answer(true, 20);
       assert.equal(calcLivesBalance(currentAnswer), 3);
+    });
+  });
+  describe(`Switch level function - switchGameLevel`, () => {
+    it(`The player answered and had lives, and this question isn't last`, () => {
+      gameStore.livesBalance = 3;
+      gameStore.currentLevel = 7;
+      assert.equal(switchGameLevel(), 8);
+    });
+    it(`The player answered and had lives, and this question is last`, () => {
+      gameStore.livesBalance = 3;
+      gameStore.currentLevel = 10;
+      assert.equal(switchGameLevel(), -1);
+    });
+    it(`The player answered wrongly and hadn't lives`, () => {
+      gameStore.livesBalance = -1;
+      gameStore.currentLevel = 9;
+      assert.equal(switchGameLevel(), -1);
     });
   });
 });
