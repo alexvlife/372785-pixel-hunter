@@ -1,3 +1,5 @@
+import {gameRules} from './game-data/game-data';
+
 export const render = (template) => {
   const wrapperElement = document.createElement(`div`);
   wrapperElement.innerHTML = template.trim();
@@ -18,6 +20,19 @@ export const gameStore = {
   currentLevel: 1,
   maxLevel: gameLevels.length,
   score: 0
+};
+
+export const questionTimer = (answer) => {
+
+  function interval() {
+    answer.time += 1;
+    if (answer.time === gameRules.answerTime.limit) {
+      clearInterval(intervalID);
+      switchGameLevel();
+    }
+  }
+  let intervalID = setInterval(interval, 1000);
+  return answer.time;
 };
 
 export const switchGameLevel = () => {

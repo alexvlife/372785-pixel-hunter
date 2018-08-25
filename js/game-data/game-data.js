@@ -9,6 +9,7 @@ export const gameRules = {
   },
   answerTime: {
     fast: 10,
-    slow: 20
+    slow: 20,
+    limit: 30
   }
 };

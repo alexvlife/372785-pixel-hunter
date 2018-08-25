@@ -5,6 +5,7 @@ import {gameStore} from '../util';
 import {calcGameScore} from '../util';
 import {calcLivesBalance} from '../util';
 import {switchGameLevel} from '../util';
+import {questionTimer} from '../util';
 
 describe(`Game`, () => {
   describe(`Scoring function - calcGameScore`, () => {
@@ -94,6 +95,12 @@ describe(`Game`, () => {
       gameStore.livesBalance = -1;
       gameStore.currentLevel = 9;
       assert.equal(switchGameLevel(), -1);
+    });
+  });
+  describe(`Timer function`, () => {
+    it(`The player thought over the answer more than 30 seconds`, () => {
+      const userAnswer = new Answer(true, 0);
+      assert.equal(questionTimer(userAnswer), 30);
     });
   });
 });
