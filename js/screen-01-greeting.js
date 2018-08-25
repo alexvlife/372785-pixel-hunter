@@ -1,4 +1,4 @@
-import {render, showScreen} from './util';
+import {render, showScreen} from './utils';
 import rules from './screen-02-rules';
 
 const greetingScreenTemplate = `<section class="greeting central--blur">

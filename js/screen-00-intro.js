@@ -1,4 +1,4 @@
-import {render, showScreen} from './util';
+import {render, showScreen} from './utils';
 import greeting from './screen-01-greeting';
 
 const introScreenTemplate = `<section class="intro">

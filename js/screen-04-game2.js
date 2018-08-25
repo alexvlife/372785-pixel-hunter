@@ -1,4 +1,4 @@
-import {render, showScreen} from './util';
+import {render, showScreen} from './utils';
 import game3 from './screen-05-game3';
 import greeting from './screen-01-greeting';
 

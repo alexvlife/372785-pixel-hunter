@@ -1,17 +1,3 @@
-import {gameRules} from './game-data/game-data';
-
-export const render = (template) => {
-  const wrapperElement = document.createElement(`div`);
-  wrapperElement.innerHTML = template.trim();
-  return wrapperElement;
-};
-
-export const showScreen = (el) => {
-  const gameField = document.querySelector(`#main`);
-  gameField.innerHTML = ``;
-  gameField.appendChild(el);
-};
-
 export const gameLevels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 export const gameStore = {
@@ -32,7 +18,7 @@ export const questionTimer = (timer) => {
 
   const stop = () => {
     clearInterval(timerId);
-    alert(`Время на данный вопрос истекло..`);
+    return `Время на данный вопрос истекло..`;
   };
 
   // через limit сек. остановить повторы
@@ -69,4 +55,3 @@ export const calcGameScore = (answers, lives, rules) => {
 
   return gameStore.score;
 };
-

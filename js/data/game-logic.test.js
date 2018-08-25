@@ -1,11 +1,7 @@
 import {assert} from 'chai';
 import {gameRules} from '../game-data/game-data';
 import {Answer} from '../models/answer';
-import {gameStore} from '../util';
-import {calcGameScore} from '../util';
-import {calcLivesBalance} from '../util';
-import {switchGameLevel} from '../util';
-// import {questionTimer} from '../util';
+import {calcGameScore, calcLivesBalance, switchGameLevel, gameStore} from '../game-logic';
 
 describe(`Game`, () => {
   describe(`Scoring function - calcGameScore`, () => {
