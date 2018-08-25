@@ -1,3 +1,19 @@
+export const gameConfig = {
+  score: {
+    answer: {
+      correct: 100,
+      fast: 50,
+      slow: -50
+    },
+    life: 50
+  },
+  answerTime: {
+    fast: 10,
+    slow: 20,
+    limit: 30
+  }
+};
+
 export const gameLevels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 export const gameStore = {

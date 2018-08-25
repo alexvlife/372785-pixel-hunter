@@ -1,7 +1,12 @@
 import {assert} from 'chai';
-import {gameRules} from '../game-data/game-data';
 import {Answer} from '../models/answer';
-import {calcGameScore, calcLivesBalance, switchGameLevel, gameStore} from '../game-logic';
+import {
+  calcGameScore,
+  calcLivesBalance,
+  gameConfig,
+  gameStore,
+  switchGameLevel
+} from '../game-logic';
 
 describe(`Game`, () => {
   describe(`Scoring function - calcGameScore`, () => {
@@ -13,7 +18,7 @@ describe(`Game`, () => {
         new Answer(false, 10)
       ];
       const livesBalance = 0;
-      assert.equal(calcGameScore(userAnswers, livesBalance, gameRules), -1);
+      assert.equal(calcGameScore(userAnswers, livesBalance, gameConfig), -1);
     });
     it(`Should return 1150, when the player answered all questions correctly,
         not fastly, not slowly, and had all lives`, () => {
@@ -30,7 +35,7 @@ describe(`Game`, () => {
         new Answer(true, 20)
       ];
       const livesBalance = 3;
-      assert.equal(calcGameScore(userAnswers, livesBalance, gameRules), 1150);
+      assert.equal(calcGameScore(userAnswers, livesBalance, gameConfig), 1150);
     });
     it(`Should return 700, when the player answered 7 questions correctly,
         not fastly, not slowly, and had no lives`, () => {
@@ -47,7 +52,7 @@ describe(`Game`, () => {
         new Answer(false, 20)
       ];
       const livesBalance = 0;
-      assert.equal(calcGameScore(userAnswers, livesBalance, gameRules), 700);
+      assert.equal(calcGameScore(userAnswers, livesBalance, gameConfig), 700);
     });
     it(`Should return 750, when the player answered 8 questions correctly,
         for 2 questions fastly, for 4 questions slowly, and had 1 live`, () => {
@@ -64,7 +69,7 @@ describe(`Game`, () => {
         new Answer(true, 5)
       ];
       const livesBalance = 1;
-      assert.equal(calcGameScore(userAnswers, livesBalance, gameRules), 750);
+      assert.equal(calcGameScore(userAnswers, livesBalance, gameConfig), 750);
     });
   });
   describe(`Manage player lives function - calcLivesBalance`, () => {
