@@ -1,17 +1,14 @@
-export const gameConfig = {
-  score: {
-    answer: {
-      correct: 100,
-      fast: 50,
-      slow: -50
-    },
-    life: 50
-  },
-  answerTime: {
-    fast: 10,
-    slow: 20,
-    limit: 30
-  }
+const AnswerTimeType = {
+  FAST: 10,
+  SLOW: 20,
+  LIMIT: 30,
+};
+
+const AnswerScoreType = {
+  CORRECT: 100,
+  FAST: 50,
+  SLOW: -50,
+  LIFE: 50,
 };
 
 export const gameLevels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -58,15 +55,15 @@ export const calcLivesBalance = (currentAnswer) => {
   return gameStore.livesBalance;
 };
 
-export const calcGameScore = (answers, lives, rules) => {
+export const calcGameScore = (answers, lives) => {
   if (answers.length < 10) {
     return -1;
   }
   const answersScore = answers.reduce((sum, answer) => {
-    return sum + answer.calcScoring(rules);
+    return sum + answer.calcScoring(AnswerTimeType, AnswerScoreType);
   }, 0);
 
-  const bonusScore = lives * rules.score.life;
+  const bonusScore = lives * AnswerScoreType.LIFE;
   gameStore.score = answersScore + bonusScore;
 
   return gameStore.score;

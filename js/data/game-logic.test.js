@@ -3,7 +3,6 @@ import {Answer} from '../models/answer';
 import {
   calcGameScore,
   calcLivesBalance,
-  gameConfig,
   gameStore,
   switchGameLevel
 } from '../game-logic';
@@ -18,7 +17,7 @@ describe(`Game`, () => {
         new Answer(false, 10)
       ];
       const livesBalance = 0;
-      assert.equal(calcGameScore(userAnswers, livesBalance, gameConfig), -1);
+      assert.equal(calcGameScore(userAnswers, livesBalance), -1);
     });
     it(`Should return 1150, when the player answered all questions correctly,
         not fastly, not slowly, and had all lives`, () => {
@@ -35,7 +34,7 @@ describe(`Game`, () => {
         new Answer(true, 20)
       ];
       const livesBalance = 3;
-      assert.equal(calcGameScore(userAnswers, livesBalance, gameConfig), 1150);
+      assert.equal(calcGameScore(userAnswers, livesBalance), 1150);
     });
     it(`Should return 700, when the player answered 7 questions correctly,
         not fastly, not slowly, and had no lives`, () => {
@@ -52,7 +51,7 @@ describe(`Game`, () => {
         new Answer(false, 20)
       ];
       const livesBalance = 0;
-      assert.equal(calcGameScore(userAnswers, livesBalance, gameConfig), 700);
+      assert.equal(calcGameScore(userAnswers, livesBalance), 700);
     });
     it(`Should return 750, when the player answered 8 questions correctly,
         for 2 questions fastly, for 4 questions slowly, and had 1 live`, () => {
@@ -69,7 +68,7 @@ describe(`Game`, () => {
         new Answer(true, 5)
       ];
       const livesBalance = 1;
-      assert.equal(calcGameScore(userAnswers, livesBalance, gameConfig), 750);
+      assert.equal(calcGameScore(userAnswers, livesBalance), 750);
     });
   });
   describe(`Manage player lives function - calcLivesBalance`, () => {

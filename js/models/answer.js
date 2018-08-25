@@ -2,21 +2,21 @@ export class Answer {
   constructor(isTrue, time) {
     this.isTrue = isTrue;
     this.time = time;
-    this.answerScoring = 0;
+    this.score = 0;
   }
-  calcScoring(rules) {
+  calcScoring(AnswerTimeType, AnswerScoreType) {
     switch (true) {
-      case (this.time <= rules.answerTime.fast):
-        this.answerScoring = rules.score.answer.correct + rules.score.answer.fast;
+      case (this.time <= AnswerTimeType.FAST):
+        this.score = AnswerScoreType.CORRECT + AnswerScoreType.FAST;
         break;
-      case (this.time > rules.answerTime.slow):
-        this.answerScoring = rules.score.answer.correct + rules.score.answer.slow;
+      case (this.time > AnswerTimeType.SLOW):
+        this.score = AnswerScoreType.CORRECT + AnswerScoreType.SLOW;
         break;
       default:
-        this.answerScoring = rules.score.answer.correct;
+        this.score = AnswerScoreType.CORRECT;
         break;
     }
-    this.answerScoring *= this.isTrue;
-    return this.answerScoring;
+    this.score *= this.isTrue;
+    return this.score;
   }
 }
