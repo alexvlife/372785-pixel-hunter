@@ -49,7 +49,7 @@ export const switchGameLevel = () => {
 };
 
 export const calcLivesBalance = (currentAnswer) => {
-  if (!currentAnswer.isTrue) {
+  if (!currentAnswer.isCorrect) {
     gameStore.livesBalance -= 1;
   }
   return gameStore.livesBalance;

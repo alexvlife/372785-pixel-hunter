@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {Answer} from '../models/answer';
+import Answer from '../models/answer';
 import {
   calcGameScore,
   calcLivesBalance,

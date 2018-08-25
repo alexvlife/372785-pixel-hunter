@@ -1,6 +1,6 @@
-export class Answer {
-  constructor(isTrue, time) {
-    this.isTrue = isTrue;
+export default class Answer {
+  constructor(isCorrect, time) {
+    this.isCorrect = isCorrect;
     this.time = time;
     this.score = 0;
   }
@@ -16,7 +16,7 @@ export class Answer {
         this.score = AnswerScoreType.CORRECT;
         break;
     }
-    this.score *= this.isTrue;
+    this.score *= this.isCorrect;
     return this.score;
   }
 }
