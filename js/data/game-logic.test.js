@@ -5,7 +5,7 @@ import {calcGameScore, calcLivesBalance, switchGameLevel, gameStore} from '../ga
 
 describe(`Game`, () => {
   describe(`Scoring function - calcGameScore`, () => {
-    it(`The player answered less than 10 questions`, () => {
+    it(`Should return -1, when the player answered less than 10 questions`, () => {
       const userAnswers = [
         new Answer(false, 10),
         new Answer(false, 21),
@@ -15,7 +15,8 @@ describe(`Game`, () => {
       const livesBalance = 0;
       assert.equal(calcGameScore(userAnswers, livesBalance, gameRules), -1);
     });
-    it(`The player answered all questions correctly, not fastly, not slowly, and had all lives`, () => {
+    it(`Should return 1150, when the player answered all questions correctly,
+        not fastly, not slowly, and had all lives`, () => {
       const userAnswers = [
         new Answer(true, 11),
         new Answer(true, 12),
@@ -31,7 +32,8 @@ describe(`Game`, () => {
       const livesBalance = 3;
       assert.equal(calcGameScore(userAnswers, livesBalance, gameRules), 1150);
     });
-    it(`The player answered 7 questions correctly, not fastly, not slowly, and had no lives`, () => {
+    it(`Should return 700, when the player answered 7 questions correctly,
+        not fastly, not slowly, and had no lives`, () => {
       const userAnswers = [
         new Answer(true, 11),
         new Answer(true, 12),
@@ -47,7 +49,8 @@ describe(`Game`, () => {
       const livesBalance = 0;
       assert.equal(calcGameScore(userAnswers, livesBalance, gameRules), 700);
     });
-    it(`The player answered 8 questions correctly, for 2 questions fastly, for 4 questions slowly, and had 1 live`, () => {
+    it(`Should return 750, when the player answered 8 questions correctly,
+        for 2 questions fastly, for 4 questions slowly, and had 1 live`, () => {
       const userAnswers = [
         new Answer(false, 11),
         new Answer(false, 8),
@@ -65,38 +68,33 @@ describe(`Game`, () => {
     });
   });
   describe(`Manage player lives function - calcLivesBalance`, () => {
-    it(`The player answered wrongly`, () => {
+    it(`Should return 2, when for the first time the player answered wrongly`, () => {
       gameStore.livesBalance = 3;
       const currentAnswer = new Answer(false, 11);
       assert.equal(calcLivesBalance(currentAnswer), 2);
     });
-    it(`The player answered correctly`, () => {
+    it(`Should return 3, when the player answered correctly`, () => {
       gameStore.livesBalance = 3;
       const currentAnswer = new Answer(true, 20);
       assert.equal(calcLivesBalance(currentAnswer), 3);
     });
   });
   describe(`Switch level function - switchGameLevel`, () => {
-    it(`The player answered and had lives, and this question isn't last`, () => {
+    it(`Should return 8, when the player answered the 7-th question
+        and had all lives, and this question isn't last`, () => {
       gameStore.livesBalance = 3;
       gameStore.currentLevel = 7;
       assert.equal(switchGameLevel(), 8);
     });
-    it(`The player answered and had lives, and this question is last`, () => {
+    it(`Should return -1, when the player answered the last question`, () => {
       gameStore.livesBalance = 3;
       gameStore.currentLevel = 10;
       assert.equal(switchGameLevel(), -1);
     });
-    it(`The player answered wrongly and hadn't lives`, () => {
+    it(`Should return -1, when the player answered wrongly and hadn't lives`, () => {
       gameStore.livesBalance = -1;
       gameStore.currentLevel = 9;
       assert.equal(switchGameLevel(), -1);
     });
   });
-  // describe(`Timer function`, () => {
-  //   it(`The player thought over the answer more than 30 seconds`, () => {
-  //     const userAnswer = new Answer(true, 0);
-  //     assert.equal(questionTimer(userAnswer), 30);
-  //   });
-  // });
 });
