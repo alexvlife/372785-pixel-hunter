@@ -1,3 +1,7 @@
+# for sourceType: 'module'
+#  look at documentation ESLint in 'Specifying Environments':
+#  - es6 - enable all ECMAScript 6 features except for modules
+#    (this automatically sets the ecmaVersion parser option to 6).
 parserOptions:
   sourceType: 'module'
 
