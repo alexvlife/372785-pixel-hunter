@@ -4,8 +4,9 @@ export const render = (template) => {
   return wrapperElement;
 };
 
-export const showScreen = (el) => {
-  const gameField = document.querySelector(`#main`);
+const gameField = document.querySelector(`#main`);
+
+export const showScreen = (screenElement) => {
   gameField.innerHTML = ``;
-  gameField.appendChild(el);
+  gameField.appendChild(screenElement);
 };
