@@ -10,16 +10,17 @@ export const showScreen = (el) => {
   gameField.appendChild(el);
 };
 
-export const calcGameScore = (userAnswers, livesBalance, gameRules) => {
-  if (userAnswers.length < 10) {
+export const calcGameScore = (answers, lives, rules) => {
+  if (answers.length < 10) {
     return -1;
   }
-  const answersScore = userAnswers.reduce((sum, answer) => {
-    return sum + answer.calcScoring(gameRules);
+  const answersScore = answers.reduce((sum, answer) => {
+    return sum + answer.calcScoring(rules);
   }, 0);
 
-  const bonusScore = livesBalance * gameRules.score.life;
+  const bonusScore = lives * rules.score.life;
   const gameScore = answersScore + bonusScore;
 
   return gameScore;
 };
+

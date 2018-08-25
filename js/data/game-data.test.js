@@ -4,7 +4,7 @@ import {gameRules} from '../game-data/game-data';
 import {Answer} from '../models/answer';
 
 describe(`Game`, () => {
-  describe(`Scoring function`, () => {
+  describe(`Scoring function - calcGameScore`, () => {
     it(`The player answered less than 10 questions`, () => {
       const userAnswers = [
         new Answer(false, 10),
