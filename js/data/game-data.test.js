@@ -1,7 +1,9 @@
 import {assert} from 'chai';
-import {calcGameScore} from '../util';
 import {gameRules} from '../game-data/game-data';
 import {Answer} from '../models/answer';
+import {gameStore} from '../util';
+import {calcGameScore} from '../util';
+import {calcLivesBalance} from '../util';
 
 describe(`Game`, () => {
   describe(`Scoring function - calcGameScore`, () => {
@@ -62,6 +64,18 @@ describe(`Game`, () => {
       ];
       const livesBalance = 1;
       assert.equal(calcGameScore(userAnswers, livesBalance, gameRules), 750);
+    });
+  });
+  describe(`Manage player lives function - calcLivesBalance`, () => {
+    it(`The player answered wrongly`, () => {
+      gameStore.livesBalance = 3;
+      const currentAnswer = new Answer(false, 11);
+      assert.equal(calcLivesBalance(currentAnswer), 2);
+    });
+    it(`The player answered correctly`, () => {
+      gameStore.livesBalance = 3;
+      const currentAnswer = new Answer(true, 20);
+      assert.equal(calcLivesBalance(currentAnswer), 3);
     });
   });
 });

@@ -10,6 +10,18 @@ export const showScreen = (el) => {
   gameField.appendChild(el);
 };
 
+export const gameStore = {
+  livesBalance: 3,
+  score: 0
+};
+
+export const calcLivesBalance = (currentAnswer) => {
+  if (!currentAnswer.isTrue) {
+    gameStore.livesBalance -= 1;
+  }
+  return gameStore.livesBalance;
+};
+
 export const calcGameScore = (answers, lives, rules) => {
   if (answers.length < 10) {
     return -1;
@@ -19,8 +31,8 @@ export const calcGameScore = (answers, lives, rules) => {
   }, 0);
 
   const bonusScore = lives * rules.score.life;
-  const gameScore = answersScore + bonusScore;
+  gameStore.score = answersScore + bonusScore;
 
-  return gameScore;
+  return gameStore.score;
 };
 
