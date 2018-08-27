@@ -1,10 +1,12 @@
+import {AnswerTimeType, AnswerScoreType} from '../game-logic';
+
 export default class Answer {
   constructor(isCorrect, time) {
     this.isCorrect = isCorrect;
     this.time = time;
     this.score = 0;
   }
-  calcScoring(AnswerTimeType, AnswerScoreType) {
+  calcScoring() {
     switch (true) {
       case (this.time <= AnswerTimeType.FAST):
         this.score = AnswerScoreType.CORRECT + AnswerScoreType.FAST;

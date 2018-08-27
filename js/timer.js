@@ -1,18 +1,18 @@
-export const questionTimer = (timer) => {
-
-  const limit = timer.limit * 1000;
-  // начать повторы с интервалом 1 сек.
-  let timerId = setInterval(() => {
-    timer.tick();
-  }, 1000);
-
-  const stop = () => {
-    clearInterval(timerId);
-    return `Время на данный вопрос истекло..`;
+export const makeTimer = (limit) => {
+  return {
+    timeLimit: limit,
+    status: `There is still some time`,
+    tick() {
+      if (this.timeLimit > 0) {
+        --this.timeLimit;
+      }
+      if (this.timeLimit === 0) {
+        this.chageStatus();
+      }
+      return this.status;
+    },
+    chageStatus() {
+      this.status = `Time is up..`;
+    }
   };
-
-  // через limit сек. остановить повторы
-  setTimeout(() => {
-    stop();
-  }, limit);
 };

@@ -1,9 +1,10 @@
 import {assert} from 'chai';
 import Answer from '../models/answer';
+import {makeTimer} from '../timer';
 import {
   calcGameScore,
   calcLivesBalance,
-  gameStore,
+  GAME_STATE,
   switchGameLevel
 } from '../game-logic';
 
@@ -16,8 +17,7 @@ describe(`Game`, () => {
         new Answer(true, 16),
         new Answer(false, 10)
       ];
-      const livesBalance = 0;
-      assert.equal(calcGameScore(userAnswers, livesBalance), -1);
+      assert.equal(calcGameScore(userAnswers, GAME_STATE), -1);
     });
     it(`Should return 1150, when the player answered all questions correctly,
         not fastly, not slowly, and had all lives`, () => {
@@ -33,11 +33,10 @@ describe(`Game`, () => {
         new Answer(true, 19),
         new Answer(true, 20)
       ];
-      const livesBalance = 3;
-      assert.equal(calcGameScore(userAnswers, livesBalance), 1150);
+      assert.equal(calcGameScore(userAnswers, GAME_STATE).score, 1150);
     });
     it(`Should return 700, when the player answered 7 questions correctly,
-        not fastly, not slowly, and had no lives`, () => {
+        not fastly, not slowly, and had all lives`, () => {
       const userAnswers = [
         new Answer(true, 11),
         new Answer(true, 12),
@@ -50,11 +49,10 @@ describe(`Game`, () => {
         new Answer(false, 19),
         new Answer(false, 20)
       ];
-      const livesBalance = 0;
-      assert.equal(calcGameScore(userAnswers, livesBalance), 700);
+      assert.equal(calcGameScore(userAnswers, GAME_STATE).score, 850);
     });
     it(`Should return 750, when the player answered 8 questions correctly,
-        for 2 questions fastly, for 4 questions slowly, and had 1 live`, () => {
+        for 2 questions fastly, for 4 questions slowly, and had all live`, () => {
       const userAnswers = [
         new Answer(false, 11),
         new Answer(false, 8),
@@ -67,38 +65,44 @@ describe(`Game`, () => {
         new Answer(true, 22),
         new Answer(true, 5)
       ];
-      const livesBalance = 1;
-      assert.equal(calcGameScore(userAnswers, livesBalance), 750);
+      assert.equal(calcGameScore(userAnswers, GAME_STATE).score, 850);
     });
   });
   describe(`Manage player lives function - calcLivesBalance`, () => {
     it(`Should return 2, when for the first time the player answered wrongly`, () => {
-      gameStore.livesBalance = 3;
       const currentAnswer = new Answer(false, 11);
-      assert.equal(calcLivesBalance(currentAnswer), 2);
+      assert.equal(calcLivesBalance(GAME_STATE, currentAnswer).livesBalance, 2);
     });
     it(`Should return 3, when the player answered correctly`, () => {
-      gameStore.livesBalance = 3;
       const currentAnswer = new Answer(true, 20);
-      assert.equal(calcLivesBalance(currentAnswer), 3);
+      assert.equal(calcLivesBalance(GAME_STATE, currentAnswer).livesBalance, 3);
     });
   });
   describe(`Switch level function - switchGameLevel`, () => {
-    it(`Should return 8, when the player answered the 7-th question
-        and had all lives, and this question isn't last`, () => {
-      gameStore.livesBalance = 3;
-      gameStore.currentLevel = 7;
-      assert.equal(switchGameLevel(), 8);
+    it(`should update level of the game`, () => {
+      assert.equal(switchGameLevel(GAME_STATE, 2).level, 2);
+      assert.equal(switchGameLevel(GAME_STATE, 3).level, 3);
+      assert.equal(switchGameLevel(GAME_STATE, 5).level, 5);
+      assert.equal(switchGameLevel(GAME_STATE, 10).level, 10);
     });
-    it(`Should return -1, when the player answered the last question`, () => {
-      gameStore.livesBalance = 3;
-      gameStore.currentLevel = 10;
-      assert.equal(switchGameLevel(), -1);
+    it(`should not allow set negative values`, () => {
+      assert.equal(switchGameLevel(GAME_STATE, -1).level, 1);
     });
-    it(`Should return -1, when the player answered wrongly and hadn't lives`, () => {
-      gameStore.livesBalance = -1;
-      gameStore.currentLevel = 9;
-      assert.equal(switchGameLevel(), -1);
+    it(`should not allow set non number value`, () => {
+      assert.equal(switchGameLevel(GAME_STATE, []).level, 1);
+      assert.equal(switchGameLevel(GAME_STATE, {}).level, 1);
+      assert.equal(switchGameLevel(GAME_STATE, undefined).level, 1);
+    });
+  });
+  describe(`Create timer - function makeTimer`, () => {
+    it(`Should return 30, when the game is start`, () => {
+      assert.equal(makeTimer(30).timeLimit, 30);
+    });
+    it(`Should return 'There is still some time', when timer tick`, () => {
+      assert.equal(makeTimer(30).tick(), `There is still some time`);
+    });
+    it(`Should return 'Time is up..', when time is up`, () => {
+      assert.equal(makeTimer(1).tick(), `Time is up..`);
     });
   });
 });
