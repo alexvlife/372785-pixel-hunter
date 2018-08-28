@@ -16,39 +16,43 @@ export const GameLevel = {
   MAX: 10,
 };
 
-export const GAME_STATE = Object.freeze({
+export const INITIAL_GAME_STATE = Object.freeze({
   livesBalance: 3,
   level: 1,
-  score: 0
 });
+
+export const currentGameState = {
+  livesBalance: INITIAL_GAME_STATE.livesBalance,
+  level: INITIAL_GAME_STATE.level
+};
 
 export const switchGameLevel = (gameState, level) => {
   if (typeof level !== `number` || level <= gameState.level) {
-    return gameState;
+    return gameState.level;
   }
-  const currentGameState = Object.assign({}, gameState, {level});
-  return currentGameState;
+  const newGameState = Object.assign({}, gameState, {level});
+  return newGameState.level;
 };
 
-export const calcLivesBalance = (gameState, currentAnswer) => {
-  const currentGameState = Object.assign({}, gameState);
+export const modifyLivesBalance = (gameState, currentAnswer) => {
+  const newGameState = Object.assign({}, gameState);
   if (!currentAnswer.isCorrect) {
-    currentGameState.livesBalance -= 1;
+    newGameState.livesBalance -= 1;
   }
-  return currentGameState;
+  return newGameState.livesBalance;
 };
 
 export const calcGameScore = (answers, gameState) => {
   if (answers.length < 10) {
     return -1;
   }
-  const currentGameState = Object.assign({}, gameState);
+  const newGameState = Object.assign({}, gameState);
   const answersScore = answers.reduce((sum, answer) => {
     return sum + answer.calcScoring();
   }, 0);
 
-  const bonusScore = currentGameState.livesBalance * AnswerScoreType.LIFE;
-  currentGameState.score = answersScore + bonusScore;
+  const bonusScore = newGameState.livesBalance * AnswerScoreType.LIFE;
+  newGameState.score = answersScore + bonusScore;
 
-  return currentGameState;
+  return newGameState.score;
 };

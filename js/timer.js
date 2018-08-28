@@ -1,18 +1,18 @@
 export const makeTimer = (limit) => {
   return {
     timeLimit: limit,
-    status: `There is still some time`,
+    isTimeUp: false,
     tick() {
       if (this.timeLimit > 0) {
         --this.timeLimit;
       }
       if (this.timeLimit === 0) {
-        this.chageStatus();
+        this.onTimeElapsed();
       }
-      return this.status;
+      return this.timeLimit;
     },
-    chageStatus() {
-      this.status = `Time is up..`;
+    onTimeElapsed() {
+      this.isTimeUp = true;
     }
   };
 };
