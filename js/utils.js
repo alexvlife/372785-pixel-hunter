@@ -6,7 +6,7 @@ export const render = (template) => {
 
 const gameField = document.querySelector(`#main`);
 
-export const showScreen = (el) => {
+export const showScreen = (screenElement) => {
   gameField.innerHTML = ``;
-  gameField.appendChild(el);
+  gameField.appendChild(screenElement);
 };
