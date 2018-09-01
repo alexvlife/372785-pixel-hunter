@@ -12,13 +12,14 @@ const gameHeaderTemplate = `<header class="header">
                                   <use xlink:href="img/sprite.svg#logo-small"></use>
                                 </svg>
                               </button>
-                              <div class="game__timer">NN</div>
-                              <div class="game__lives">
-                                <img src="img/heart__empty.svg" class="game__heart" alt="Life" width="31" height="27">
-                                <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
-                                <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
-                              </div>
                             </header>`;
+
+const gameStateTemplate = `<div class="game__timer">NN</div>
+                          <div class="game__lives">
+                            <img src="img/heart__empty.svg" class="game__heart" alt="Life" width="31" height="27">
+                            <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
+                            <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
+                          </div>`;
 
 const game3ScreenTemplate = `<section class="game">
                               <p class="game__task">Найдите рисунок среди изображений</p>
@@ -50,10 +51,11 @@ const gameStatsTemplate = `<ul class="stats">
 
 const headerElement = render(gameHeaderTemplate);
 const game3ScreenElement = render(game3ScreenTemplate);
-
+const gameHeader = headerElement.querySelector(`.header`);
 const gameContent = game3ScreenElement.querySelector(`.game__content`);
 
 game3ScreenElement.insertBefore(headerElement, game3ScreenElement.firstChild);
+gameHeader.insertAdjacentHTML(`beforeEnd`, gameStateTemplate);
 gameContent.insertAdjacentHTML(`afterEnd`, gameStatsTemplate);
 
 gameContent.addEventListener(`click`, (evt) => {
