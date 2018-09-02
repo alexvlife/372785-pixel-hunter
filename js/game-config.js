@@ -3,6 +3,12 @@ export const INITIAL_GAME_STATE = Object.freeze({
   level: 0,
 });
 
+export const QuestionType = {
+  ONE_IMAGE: `one-image`,
+  TWO_IMAGES: `two-images`,
+  THREE_IMAGES: `three-images`,
+};
+
 export const AnswerTimeType = {
   FAST: 10,
   SLOW: 20,

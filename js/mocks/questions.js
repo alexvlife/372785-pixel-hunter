@@ -1,6 +1,6 @@
 const questions = [
   {
-    type: 1,
+    type: `one-image`,
     description: `Угадай, фото или рисунок?`,
     image: {
       url: `https://k42.kn3.net/CF42609C8.jpg`,
@@ -8,7 +8,7 @@ const questions = [
     }
   },
   {
-    type: 2,
+    type: `two-images`,
     description: `Угадайте для каждого изображения фото или рисунок?`,
     images: [
       {
@@ -22,7 +22,7 @@ const questions = [
     ]
   },
   {
-    type: 3,
+    type: `three-images`,
     description: `Найдите рисунок среди изображений`,
     images: [
       {

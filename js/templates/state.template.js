@@ -1,4 +1,4 @@
-import {AnswerTimeType, INITIAL_GAME_STATE} from '../data';
+import {AnswerTimeType, INITIAL_GAME_STATE} from '../game-config';
 
 const getStateTemplate = (currentLives) => {
   return (currentLives === undefined) ? ``

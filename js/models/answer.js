@@ -1,5 +1,5 @@
 import {AnswerScoreType} from '../game-logic';
-import {AnswerTimeType} from '../data';
+import {AnswerTimeType} from '../game-config';
 
 export default class Answer {
   constructor(isCorrect, time) {

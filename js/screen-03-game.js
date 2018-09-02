@@ -15,13 +15,13 @@ const getGameScreenElement = (currentGameState, questions) => {
   let isLastLevel = currentGameState.level === questions.length;
   let nextScreen = (isLastLevel) ? stats : getGameScreenElement(currentGameState, questions);
 
-  if (currentQuestion.type === 1) {
+  if (currentQuestion.type === `one-image`) {
     gameScreenElement.addEventListener(`input`, () => {
       showScreen(nextScreen);
     });
   }
 
-  if (currentQuestion.type === 2) {
+  if (currentQuestion.type === `two-images`) {
     gameScreenElement.addEventListener(`input`, () => {
       const answers = document.querySelectorAll(`input[type=radio]:checked`);
       if (answers.length === 2) {
@@ -30,7 +30,7 @@ const getGameScreenElement = (currentGameState, questions) => {
     });
   }
 
-  if (currentQuestion.type === 3) {
+  if (currentQuestion.type === `three-images`) {
     gameScreenElement.addEventListener(`click`, (evt) => {
       if (evt.target.tagName === `IMG`) {
         showScreen(nextScreen);

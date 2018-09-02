@@ -1,7 +1,7 @@
 import {render, showScreen} from './utils';
 import getGameScreenElement from './screen-03-game';
 import greeting from './screen-01-greeting';
-import {currentGameState} from './data';
+import {currentGameState} from './game-config';
 import questions from './mocks/questions';
 
 const rulesScreenTemplate = `<header class="header">
