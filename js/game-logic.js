@@ -1,9 +1,3 @@
-export const AnswerTimeType = {
-  FAST: 10,
-  SLOW: 20,
-  LIMIT: 30,
-};
-
 export const AnswerScoreType = {
   CORRECT: 100,
   FAST: 50,

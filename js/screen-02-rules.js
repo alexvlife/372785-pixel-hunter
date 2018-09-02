@@ -1,6 +1,8 @@
 import {render, showScreen} from './utils';
-import game1 from './screen-03-game1';
+import getGameScreenElement from './screen-03-game';
 import greeting from './screen-01-greeting';
+import {currentGameState} from './data';
+import questions from './mocks/questions';
 
 const rulesScreenTemplate = `<header class="header">
                           <button class="back">
@@ -39,7 +41,8 @@ userNameInput.addEventListener(`input`, (evt) => {
 });
 
 goNextButton.addEventListener(`click`, () => {
-  showScreen(game1);
+  const gameScreenElement = getGameScreenElement(currentGameState, questions);
+  showScreen(gameScreenElement);
 });
 
 const goBackButton = rulesScreenElement.querySelector(`.back`);

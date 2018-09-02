@@ -1,6 +1,6 @@
 import {render, showScreen} from './utils';
 import greeting from './screen-01-greeting';
-import getHeaderTemplate from './templates/header';
+import getHeaderTemplate from './templates/header.template';
 
 const gameHeaderTemplate = getHeaderTemplate();
 

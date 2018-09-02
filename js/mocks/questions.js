@@ -1,14 +1,14 @@
 const questions = [
   {
+    type: 1,
     description: `Угадай, фото или рисунок?`,
-    images: [
-      {
-        url: `https://k42.kn3.net/CF42609C8.jpg`,
-        type: `paint`,
-      }
-    ]
+    image: {
+      url: `https://k42.kn3.net/CF42609C8.jpg`,
+      type: `paint`,
+    }
   },
   {
+    type: 2,
     description: `Угадайте для каждого изображения фото или рисунок?`,
     images: [
       {
@@ -22,6 +22,7 @@ const questions = [
     ]
   },
   {
+    type: 3,
     description: `Найдите рисунок среди изображений`,
     images: [
       {

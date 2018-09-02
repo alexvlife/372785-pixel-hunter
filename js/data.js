@@ -1,6 +1,15 @@
-const INITIAL_GAME_STATE = Object.freeze({
+export const INITIAL_GAME_STATE = Object.freeze({
   lives: 3,
-  level: 1,
+  level: 0,
 });
 
-export default INITIAL_GAME_STATE;
+export const AnswerTimeType = {
+  FAST: 10,
+  SLOW: 20,
+  LIMIT: 30,
+};
+
+export let currentGameState = {
+  lives: INITIAL_GAME_STATE.lives,
+  level: INITIAL_GAME_STATE.level,
+};
