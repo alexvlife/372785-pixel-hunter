@@ -10,16 +10,11 @@ export const GameLevel = {
   MAX: 10,
 };
 
-export const switchGameLevel = (currentLevel, nextLevel) => {
-  if (typeof nextLevel !== `number` || nextLevel <= currentLevel || nextLevel > GameLevel.MAX) {
+export const switchGameLevel = (currentLevel) => {
+  if (typeof currentLevel !== `number` || currentLevel === GameLevel.MAX) {
     return currentLevel;
   }
-  let result;
-  const stepLevel = nextLevel - currentLevel;
-  if (stepLevel === 1) {
-    result = nextLevel;
-  }
-  return result;
+  return ++currentLevel;
 };
 
 export const calcLivesBalance = (currentLivesBalance, currentAnswer) => {
@@ -36,4 +31,17 @@ export const calcGameScore = (answers, currentLivesBalance) => {
 
   const bonusScore = currentLivesBalance * AnswerScoreType.LIFE;
   return answersScore + bonusScore;
+};
+
+export const getNewGameState = (currentGameState, currentAnswer) => {
+  const newGameState = JSON.parse(JSON.stringify(currentGameState)); // Deep Clone
+  newGameState.answers[currentAnswer.id] = currentAnswer;
+  newGameState.level = switchGameLevel(currentGameState.level);
+  newGameState.lives = calcLivesBalance(currentGameState.lives, currentAnswer);
+  return newGameState;
+};
+
+export const goStatsScreen = (newGameState, questions) => {
+  const isLastLevel = (newGameState.level === questions.length);
+  return (isLastLevel || (newGameState.lives < 0));
 };

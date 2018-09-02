@@ -1,8 +1,9 @@
 import {render, showScreen} from './utils';
 import getGameScreenElement from './screen-03-game';
 import greeting from './screen-01-greeting';
-import {currentGameState} from './game-config';
+import {INITIAL_GAME_STATE} from './game-config';
 import questions from './mocks/questions';
+import {saveAnswerData} from './answer-logic';
 
 const rulesScreenTemplate = `<header class="header">
                           <button class="back">
@@ -41,6 +42,10 @@ userNameInput.addEventListener(`input`, (evt) => {
 });
 
 goNextButton.addEventListener(`click`, () => {
+  const currentGameState = Object.assign({}, INITIAL_GAME_STATE);
+  currentGameState.answers = questions.map((name, index) => {
+    return saveAnswerData(index, ``, ``);
+  });
   const gameScreenElement = getGameScreenElement(currentGameState, questions);
   showScreen(gameScreenElement);
 });

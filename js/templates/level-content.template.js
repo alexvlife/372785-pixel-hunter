@@ -27,11 +27,10 @@ const getLevelContentType2Template = (question) => {
                                 <input class="visually-hidden" name="question${index + 1}" type="radio" value="paint">
                                 <span>Рисунок</span>
                               </label>
-                            </div>`
-    );
+                            </div>`);
   });
   return `<form class="game__content">
-            ${contentTemplates.join(``)};
+            ${contentTemplates.join(``)}
           </form>`;
 };
 
