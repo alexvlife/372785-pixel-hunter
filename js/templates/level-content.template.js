@@ -48,10 +48,10 @@ const getLevelContentType3Template = (question) => {
           </form>`;
 };
 
-const levelContentTemplate = {
+const LevelContentTemplateMap = {
   'one-image': getLevelContentType1Template,
   'two-images': getLevelContentType2Template,
   'three-images': getLevelContentType3Template,
 };
 
-export default levelContentTemplate;
+export default LevelContentTemplateMap;
