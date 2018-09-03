@@ -1,6 +1,6 @@
 import {render, showScreen} from './utils';
 import greeting from './screen-01-greeting';
-import stats from './screen-04-stats';
+import getStatsScreenElement from './screen-04-stats';
 import getHeaderTemplate from './templates/header.template';
 import getLevelTemplate from './templates/level.template';
 import {checkUserAnswer, GetUserAnswerMap, saveAnswerData} from './answer-logic';
@@ -27,7 +27,7 @@ const getGameScreenElement = (gameState, questions) => {
       const answer = saveAnswerData(currentGameState.level, answerKind, answerTime);
       answer.defineType();
       const newGameState = getNewGameState(currentGameState, answer);
-      const nextScreen = (goStatsScreen(newGameState, questions)) ? stats
+      const nextScreen = (goStatsScreen(newGameState, questions)) ? getStatsScreenElement(newGameState)
         : getGameScreenElement(newGameState, questions);
       showScreen(nextScreen);
     }
