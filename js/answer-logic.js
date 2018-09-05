@@ -26,7 +26,7 @@ export const checkUserAnswer = (userAnswer, rightAnswer) => {
 };
 
 export const saveAnswerData = (currentGameLevel, answerKind, answerTime) => {
-  return {
+  const answerData = {
     id: currentGameLevel,
     isCorrect: answerKind,
     time: answerTime,
@@ -35,4 +35,6 @@ export const saveAnswerData = (currentGameLevel, answerKind, answerTime) => {
       this.type = (this.isCorrect) ? AnswerType.CORRECT : AnswerType.WRONG;
     },
   };
+  answerData.defineType();
+  return answerData;
 };

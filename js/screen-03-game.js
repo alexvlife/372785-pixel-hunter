@@ -25,7 +25,6 @@ const getGameScreenElement = (gameState, questions) => {
       const answerTime = 15; // заглушка (в данном задании - таймер не требуется).
       const answerKind = checkUserAnswer(userAnswer, currentQuestion.rightAnswer);
       const answer = saveAnswerData(currentGameState.level, answerKind, answerTime);
-      answer.defineType();
       const newGameState = getNewGameState(currentGameState, answer);
       const nextScreen = (goStatsScreen(newGameState, questions)) ? getStatsScreenElement(newGameState)
         : getGameScreenElement(newGameState, questions);
