@@ -1,4 +1,4 @@
-import {AnswerType} from './game-config';
+import {AnswerType, QuestionType} from './game-config';
 
 const getUserAnswerType1 = () => {
   const userAnswers = document.querySelectorAll(`input[type=radio]:checked`);
@@ -15,10 +15,10 @@ const getUserAnswerType3 = (evt) => {
   return (userAnswer) ? userAnswer : false;
 };
 
-export const GetUserAnswerMap = {
-  'one-image': getUserAnswerType1,
-  'two-images': getUserAnswerType2,
-  'three-images': getUserAnswerType3,
+export const UserAnswerTypeMap = {
+  [QuestionType.ONE_IMAGE]: getUserAnswerType1,
+  [QuestionType.TWO_IMAGE]: getUserAnswerType2,
+  [QuestionType.THREE_IMAGES]: getUserAnswerType3,
 };
 
 export const checkUserAnswer = (userAnswer, rightAnswer) => {

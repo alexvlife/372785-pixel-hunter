@@ -3,7 +3,7 @@ import greeting from './screen-01-greeting';
 import getStatsScreenElement from './screen-04-stats';
 import getHeaderTemplate from './templates/header.template';
 import getLevelTemplate from './templates/level.template';
-import {checkUserAnswer, GetUserAnswerMap, saveAnswerData} from './answer-logic';
+import {checkUserAnswer, UserAnswerTypeMap, saveAnswerData} from './answer-logic';
 import {getNewGameState, goStatsScreen} from './game-logic';
 
 const getGameScreenElement = (gameState, questions) => {
@@ -18,7 +18,7 @@ const getGameScreenElement = (gameState, questions) => {
   });
 
   gameScreenElement.addEventListener(`click`, (evt) => {
-    const userAnswer = GetUserAnswerMap[currentQuestion.type](evt);
+    const userAnswer = UserAnswerTypeMap[currentQuestion.type](evt);
 
     if (userAnswer) {
       const answerTime = 15; // заглушка (в данном задании - таймер не требуется).
