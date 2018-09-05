@@ -1,4 +1,4 @@
-import {render, showScreen} from './utils';
+import {render, showScreen} from './utilsForBrowser';
 import greeting from './screen-01-greeting';
 import getHeaderTemplate from './templates/header.template';
 import getResultTemplate from './templates/result.template';

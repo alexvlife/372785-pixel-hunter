@@ -1,4 +1,4 @@
-import {deepCloning} from "./utils";
+import {getClone} from "./utils";
 
 export const AnswerScoreType = {
   CORRECT: 100,
@@ -36,7 +36,7 @@ export const calcGameScore = (answers, currentLivesBalance) => {
 };
 
 export const getNewGameState = (currentGameState, currentAnswer) => {
-  const newGameState = deepCloning(currentGameState);
+  const newGameState = getClone(currentGameState);
   newGameState.answers[currentAnswer.id] = currentAnswer;
   newGameState.level = switchGameLevel(newGameState.level);
   newGameState.lives = calcLivesBalance(newGameState.lives, currentAnswer);

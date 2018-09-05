@@ -1,4 +1,4 @@
-import {render, showScreen} from './utils';
+import {render, showScreen} from './utilsForBrowser';
 import getGameScreenElement from './screen-03-game';
 import greeting from './screen-01-greeting';
 import {INITIAL_GAME_STATE} from './game-config';
