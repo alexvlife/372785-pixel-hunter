@@ -17,7 +17,7 @@ const getUserAnswerType3 = (evt) => {
 
 export const UserAnswerTypeMap = {
   [QuestionType.ONE_IMAGE]: getUserAnswerType1,
-  [QuestionType.TWO_IMAGE]: getUserAnswerType2,
+  [QuestionType.TWO_IMAGES]: getUserAnswerType2,
   [QuestionType.THREE_IMAGES]: getUserAnswerType3,
 };
 
