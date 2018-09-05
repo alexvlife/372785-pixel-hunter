@@ -1,3 +1,5 @@
+import {deepCloning} from "./utils";
+
 export const AnswerScoreType = {
   CORRECT: 100,
   FAST: 50,
@@ -34,10 +36,10 @@ export const calcGameScore = (answers, currentLivesBalance) => {
 };
 
 export const getNewGameState = (currentGameState, currentAnswer) => {
-  const newGameState = JSON.parse(JSON.stringify(currentGameState)); // Deep Clone
+  const newGameState = deepCloning(currentGameState);
   newGameState.answers[currentAnswer.id] = currentAnswer;
-  newGameState.level = switchGameLevel(currentGameState.level);
-  newGameState.lives = calcLivesBalance(currentGameState.lives, currentAnswer);
+  newGameState.level = switchGameLevel(newGameState.level);
+  newGameState.lives = calcLivesBalance(newGameState.lives, currentAnswer);
   return newGameState;
 };
 

@@ -10,3 +10,7 @@ export const showScreen = (screenElement) => {
   gameField.innerHTML = ``;
   gameField.appendChild(screenElement);
 };
+
+export const deepCloning = (currentObject) => {
+  return JSON.parse(JSON.stringify(currentObject));
+};
