@@ -43,7 +43,7 @@ const getLevelContentType3Template = (question) => {
     );
   });
   return `<form class="game__content game__content--triple">
-            ${contentTemplates.join(``)};
+            ${contentTemplates.join(``)}
           </form>`;
 };
 

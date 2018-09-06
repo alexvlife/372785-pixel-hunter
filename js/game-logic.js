@@ -13,18 +13,18 @@ export const GameLevel = {
   MAX: 10,
 };
 
-export const ResultTypesMap = {
-  RIGHT_ANSWER: `rigth`,
+export const ResultType = {
+  RIGHT_ANSWER: `right`,
   FAST_ANSWER: `fast`,
   SLOW_ANSWER: `slow`,
   LIVES_BALANCE: `alive`,
 };
 
 export const ResultTitleMap = {
-  [ResultTypesMap.RIGHT_ANSWER]: `За правильные ответы`,
-  [ResultTypesMap.FAST_ANSWER]: `Бонус за скорость`,
-  [ResultTypesMap.LIVES_BALANCE]: `Бонус за жизни`,
-  [ResultTypesMap.SLOW_ANSWER]: `Штраф за медлительность`,
+  [ResultType.RIGHT_ANSWER]: `За правильные ответы`,
+  [ResultType.FAST_ANSWER]: `Бонус за скорость`,
+  [ResultType.LIVES_BALANCE]: `Бонус за жизни`,
+  [ResultType.SLOW_ANSWER]: `Штраф за медлительность`,
 };
 
 export const switchGameLevel = (currentLevel) => {
@@ -64,9 +64,7 @@ export const goStatsScreen = (newGameState, questions) => {
 };
 
 export const getCorrectAnswerCount = (answers) => {
-  return answers.filter((answer) => {
-    return answer.isCorrect;
-  }).length;
+  return answers.filter((answer) => answer.isCorrect).length;
 };
 
 export const getTotalPoints = (gameResult) => {
@@ -76,25 +74,25 @@ export const getTotalPoints = (gameResult) => {
 export const getGameResults = (finalGameState) => {
   const gameResults = [
     {
-      title: ResultTitleMap[ResultTypesMap.RIGHT_ANSWER],
+      title: ResultTitleMap[ResultType.RIGHT_ANSWER],
       count: getCorrectAnswerCount(finalGameState.answers),
       points: AnswerScoreType.CORRECT,
     },
     {
-      title: ResultTitleMap[ResultTypesMap.FAST_ANSWER],
-      type: ResultTypesMap.FAST_ANSWER,
+      title: ResultTitleMap[ResultType.FAST_ANSWER],
+      type: ResultType.FAST_ANSWER,
       count: 0, // в текущем задании не требуется
       points: AnswerScoreType.FAST,
     },
     {
-      title: ResultTitleMap[ResultTypesMap.LIVES_BALANCE],
-      type: ResultTypesMap.LIVES_BALANCE,
+      title: ResultTitleMap[ResultType.LIVES_BALANCE],
+      type: ResultType.LIVES_BALANCE,
       count: finalGameState.lives,
       points: AnswerScoreType.LIFE,
     },
     {
-      title: ResultTitleMap[ResultTypesMap.SLOW_ANSWER],
-      type: ResultTypesMap.SLOW_ANSWER,
+      title: ResultTitleMap[ResultType.SLOW_ANSWER],
+      type: ResultType.SLOW_ANSWER,
       count: 0, // в текущем задании не требуется
       points: AnswerScoreType.SLOW,
       total: 0,

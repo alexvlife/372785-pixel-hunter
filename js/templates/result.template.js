@@ -3,8 +3,7 @@ import {
   getGameResults,
   getGameResultTotal,
   getTotalPoints,
-  ResultTitleMap,
-  ResultTypesMap,
+  ResultType,
 } from '../game-logic';
 
 const getResultTemplate = (finalGameState) => {
@@ -24,7 +23,7 @@ const getResultTemplate = (finalGameState) => {
   };
 
   gameResults.forEach((result) => {
-    if (result.title !== ResultTitleMap[ResultTypesMap.RIGHT_ANSWER] && getTotalPoints(result) > 0) {
+    if (result.type !== ResultType.RIGHT_ANSWER && getTotalPoints(result) > 0) {
       resultTemplates.push(getTemplateOfResult(result));
     }
   });
