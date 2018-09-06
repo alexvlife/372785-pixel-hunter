@@ -1,8 +1,5 @@
-export const AnswerTimeType = {
-  FAST: 10,
-  SLOW: 20,
-  LIMIT: 30,
-};
+import {getClone} from "./utils";
+import {INITIAL_GAME_STATE} from "./game-config";
 
 export const AnswerScoreType = {
   CORRECT: 100,
@@ -16,16 +13,25 @@ export const GameLevel = {
   MAX: 10,
 };
 
-export const switchGameLevel = (currentLevel, nextLevel) => {
-  if (typeof nextLevel !== `number` || nextLevel <= currentLevel || nextLevel > GameLevel.MAX) {
+export const ResultType = {
+  RIGHT_ANSWER: `right`,
+  FAST_ANSWER: `fast`,
+  SLOW_ANSWER: `slow`,
+  LIVES_BALANCE: `alive`,
+};
+
+export const ResultTitleMap = {
+  [ResultType.RIGHT_ANSWER]: `За правильные ответы`,
+  [ResultType.FAST_ANSWER]: `Бонус за скорость`,
+  [ResultType.LIVES_BALANCE]: `Бонус за жизни`,
+  [ResultType.SLOW_ANSWER]: `Штраф за медлительность`,
+};
+
+export const switchGameLevel = (currentLevel) => {
+  if (typeof currentLevel !== `number` || currentLevel === GameLevel.MAX) {
     return currentLevel;
   }
-  let result;
-  const stepLevel = nextLevel - currentLevel;
-  if (stepLevel === 1) {
-    result = nextLevel;
-  }
-  return result;
+  return ++currentLevel;
 };
 
 export const calcLivesBalance = (currentLivesBalance, currentAnswer) => {
@@ -42,4 +48,66 @@ export const calcGameScore = (answers, currentLivesBalance) => {
 
   const bonusScore = currentLivesBalance * AnswerScoreType.LIFE;
   return answersScore + bonusScore;
+};
+
+export const getNewGameState = (currentGameState, currentAnswer) => {
+  const newGameState = getClone(currentGameState);
+  newGameState.answers[currentAnswer.id] = currentAnswer;
+  newGameState.level = switchGameLevel(newGameState.level);
+  newGameState.lives = calcLivesBalance(newGameState.lives, currentAnswer);
+  return newGameState;
+};
+
+export const goStatsScreen = (newGameState, questions) => {
+  const isLastLevel = (newGameState.level === questions.length);
+  return (isLastLevel || (newGameState.lives < 0));
+};
+
+export const getCorrectAnswerCount = (answers) => {
+  return answers.filter((answer) => answer.isCorrect).length;
+};
+
+export const getTotalPoints = (gameResult) => {
+  return gameResult.count * gameResult.points;
+};
+
+export const getGameResults = (finalGameState) => {
+  const gameResults = [
+    {
+      title: ResultTitleMap[ResultType.RIGHT_ANSWER],
+      count: getCorrectAnswerCount(finalGameState.answers),
+      points: AnswerScoreType.CORRECT,
+    },
+    {
+      title: ResultTitleMap[ResultType.FAST_ANSWER],
+      type: ResultType.FAST_ANSWER,
+      count: 0, // в текущем задании не требуется
+      points: AnswerScoreType.FAST,
+    },
+    {
+      title: ResultTitleMap[ResultType.LIVES_BALANCE],
+      type: ResultType.LIVES_BALANCE,
+      count: finalGameState.lives,
+      points: AnswerScoreType.LIFE,
+    },
+    {
+      title: ResultTitleMap[ResultType.SLOW_ANSWER],
+      type: ResultType.SLOW_ANSWER,
+      count: 0, // в текущем задании не требуется
+      points: AnswerScoreType.SLOW,
+      total: 0,
+    },
+  ];
+  return gameResults;
+};
+
+export const getGameResultTotal = (gameResults) => {
+  const totalPoints = gameResults.reduce((sum, type) => {
+    return sum + getTotalPoints(type);
+  }, 0);
+
+  const isGamePassed = (gameResults[0].count > (GameLevel.MAX - INITIAL_GAME_STATE.lives));
+  const gameStatusTitle = (isGamePassed) ? `Победа!` : `Увы.. Попробуйте еще раз`;
+
+  return {totalPoints, isGamePassed, gameStatusTitle};
 };

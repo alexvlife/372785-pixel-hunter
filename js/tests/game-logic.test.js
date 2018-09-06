@@ -78,22 +78,13 @@ describe(`Game logic tests`, () => {
   });
   describe(`Switch game level function - switchGameLevel`, () => {
     it(`should update level of the game`, () => {
-      assert.equal(switchGameLevel(1, 2), 2);
-      assert.equal(switchGameLevel(2, 3), 3);
-      assert.equal(switchGameLevel(4, 5), 5);
-      assert.equal(switchGameLevel(9, 10), 10);
+      assert.equal(switchGameLevel(1), 2);
+      assert.equal(switchGameLevel(2), 3);
+      assert.equal(switchGameLevel(4), 5);
+      assert.equal(switchGameLevel(9), 10);
     });
-    it(`should return current level, when set negative value`, () => {
-      assert.equal(switchGameLevel(1, -1), 1);
-    });
-    it(`should return current level, when set value bigger than max level`, () => {
-      assert.equal(switchGameLevel(10, 11), 10);
-    });
-    it(`should not allow set non number value`, () => {
-      assert.equal(switchGameLevel(1, []), 1);
-      assert.equal(switchGameLevel(2, {}), 2);
-      assert.equal(switchGameLevel(3, undefined), 3);
-      assert.equal(switchGameLevel(4, `nine`), 4);
+    it(`should return current level, when cerrent level === max level`, () => {
+      assert.equal(switchGameLevel(10), 10);
     });
   });
 });
