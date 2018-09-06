@@ -3,11 +3,6 @@ export const INITIAL_GAME_STATE = Object.freeze({
   level: 0,
 });
 
-export const INITIAL_ANSWER_DATA = Object.freeze({
-  lives: 3,
-  level: 0,
-});
-
 export const QuestionType = {
   ONE_IMAGE: `one-image`,
   TWO_IMAGES: `two-images`,

@@ -1,4 +1,5 @@
 import {getClone} from "./utils";
+import {INITIAL_GAME_STATE} from "./game-config";
 
 export const AnswerScoreType = {
   CORRECT: 100,
@@ -46,4 +47,65 @@ export const getNewGameState = (currentGameState, currentAnswer) => {
 export const goStatsScreen = (newGameState, questions) => {
   const isLastLevel = (newGameState.level === questions.length);
   return (isLastLevel || (newGameState.lives < 0));
+};
+
+export const getCorrectAnswerCount = (answers) => {
+  return answers.filter((answer) => {
+    return answer.isCorrect === true;
+  }).length;
+};
+
+
+export const getGameResults = (finalGameState) => {
+  const gameResults = [
+    {
+      title: `За правильные ответы`,
+      count: getCorrectAnswerCount(finalGameState.answers),
+      pointsOfOne: AnswerScoreType.CORRECT,
+      getTotalPoints() {
+        return this.count * this.pointsOfOne;
+      }
+    },
+    {
+      title: `Бонус за скорость`,
+      type: `fast`,
+      count: 0, // в текущем задании не требуется
+      pointsOfOne: AnswerScoreType.FAST,
+      getTotalPoints() {
+        return this.count * this.pointsOfOne;
+      }
+    },
+    {
+      title: `Бонус за жизни`,
+      type: `alive`,
+      count: finalGameState.lives,
+      pointsOfOne: AnswerScoreType.LIFE,
+      getTotalPoints() {
+        return this.count * this.pointsOfOne;
+      }
+    },
+    {
+      title: `Штраф за медлительность`,
+      type: `slow`,
+      count: 0, // в текущем задании не требуется
+      pointsOfOne: AnswerScoreType.SLOW,
+      total: 0,
+      getTotalPoints() {
+        return this.count * this.pointsOfOne;
+      }
+    },
+  ];
+  return gameResults;
+};
+
+export const getGameResultTotal = (gameResults) => {
+  const totalPoints = gameResults.reduce((sum, type) => {
+    return sum + type.getTotalPoints();
+  }, 0);
+
+  const gameStatus = (gameResults[0].count > (GameLevel.MAX - INITIAL_GAME_STATE.lives))
+    ? `Победа!`
+    : `Увы.. Попробуйте еще раз`;
+  return {totalPoints, gameStatus};
+
 };
