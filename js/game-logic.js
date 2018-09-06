@@ -13,6 +13,20 @@ export const GameLevel = {
   MAX: 10,
 };
 
+export const ResultTypesMap = {
+  RIGHT_ANSWER: `rigth`,
+  FAST_ANSWER: `fast`,
+  SLOW_ANSWER: `slow`,
+  LIVES_BALANCE: `alive`,
+};
+
+export const ResultTitleMap = {
+  [ResultTypesMap.RIGHT_ANSWER]: `За правильные ответы`,
+  [ResultTypesMap.FAST_ANSWER]: `Бонус за скорость`,
+  [ResultTypesMap.LIVES_BALANCE]: `Бонус за жизни`,
+  [ResultTypesMap.SLOW_ANSWER]: `Штраф за медлительность`,
+};
+
 export const switchGameLevel = (currentLevel) => {
   if (typeof currentLevel !== `number` || currentLevel === GameLevel.MAX) {
     return currentLevel;
@@ -51,48 +65,39 @@ export const goStatsScreen = (newGameState, questions) => {
 
 export const getCorrectAnswerCount = (answers) => {
   return answers.filter((answer) => {
-    return answer.isCorrect === true;
+    return answer.isCorrect;
   }).length;
 };
 
+export const getTotalPoints = (gameResult) => {
+  return gameResult.count * gameResult.points;
+};
 
 export const getGameResults = (finalGameState) => {
   const gameResults = [
     {
-      title: `За правильные ответы`,
+      title: ResultTitleMap[ResultTypesMap.RIGHT_ANSWER],
       count: getCorrectAnswerCount(finalGameState.answers),
-      pointsOfOne: AnswerScoreType.CORRECT,
-      getTotalPoints() {
-        return this.count * this.pointsOfOne;
-      }
+      points: AnswerScoreType.CORRECT,
     },
     {
-      title: `Бонус за скорость`,
-      type: `fast`,
+      title: ResultTitleMap[ResultTypesMap.FAST_ANSWER],
+      type: ResultTypesMap.FAST_ANSWER,
       count: 0, // в текущем задании не требуется
-      pointsOfOne: AnswerScoreType.FAST,
-      getTotalPoints() {
-        return this.count * this.pointsOfOne;
-      }
+      points: AnswerScoreType.FAST,
     },
     {
-      title: `Бонус за жизни`,
-      type: `alive`,
+      title: ResultTitleMap[ResultTypesMap.LIVES_BALANCE],
+      type: ResultTypesMap.LIVES_BALANCE,
       count: finalGameState.lives,
-      pointsOfOne: AnswerScoreType.LIFE,
-      getTotalPoints() {
-        return this.count * this.pointsOfOne;
-      }
+      points: AnswerScoreType.LIFE,
     },
     {
-      title: `Штраф за медлительность`,
-      type: `slow`,
+      title: ResultTitleMap[ResultTypesMap.SLOW_ANSWER],
+      type: ResultTypesMap.SLOW_ANSWER,
       count: 0, // в текущем задании не требуется
-      pointsOfOne: AnswerScoreType.SLOW,
+      points: AnswerScoreType.SLOW,
       total: 0,
-      getTotalPoints() {
-        return this.count * this.pointsOfOne;
-      }
     },
   ];
   return gameResults;
@@ -100,12 +105,11 @@ export const getGameResults = (finalGameState) => {
 
 export const getGameResultTotal = (gameResults) => {
   const totalPoints = gameResults.reduce((sum, type) => {
-    return sum + type.getTotalPoints();
+    return sum + getTotalPoints(type);
   }, 0);
 
-  const gameStatus = (gameResults[0].count > (GameLevel.MAX - INITIAL_GAME_STATE.lives))
-    ? `Победа!`
-    : `Увы.. Попробуйте еще раз`;
-  return {totalPoints, gameStatus};
+  const isGamePassed = (gameResults[0].count > (GameLevel.MAX - INITIAL_GAME_STATE.lives));
+  const gameStatusTitle = (isGamePassed) ? `Победа!` : `Увы.. Попробуйте еще раз`;
 
+  return {totalPoints, isGamePassed, gameStatusTitle};
 };
