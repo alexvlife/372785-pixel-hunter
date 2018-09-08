@@ -1,17 +1,10 @@
-import {render, showScreen} from './utilsForBrowser';
+import ScreenIntroView from './view/screen-intro-view';
+import {showScreen} from './utilsForBrowser';
 import greeting from './screen-01-greeting';
 
-const introScreenTemplate = `<section class="intro">
-                          <button class="intro__asterisk asterisk" type="button"><span class="visually-hidden">Продолжить</span>*</button>
-                          <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
-                        </section>`;
+const screenIntroView = new ScreenIntroView();
+screenIntroView.onGoNextButtonClick = () => showScreen(greeting);
 
-const introScreenElement = render(introScreenTemplate);
+const screenIntroElement = screenIntroView.element;
 
-const goNextButton = introScreenElement.querySelector(`.intro__asterisk`);
-
-goNextButton.addEventListener(`click`, () => {
-  showScreen(greeting);
-});
-
-export default introScreenElement;
+export default screenIntroElement;
