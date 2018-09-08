@@ -8,6 +8,10 @@ import greeting from './screen-01-greeting';
 
 const screenRulesView = new ScreenRulesView();
 
+screenRulesView.onUserNameInput = (evt) => {
+  screenRulesView.goNextButton.disabled = evt.target.value ? false : true;
+};
+
 screenRulesView.onGoNextButtonClick = () => {
   const currentGameState = Object.assign({}, INITIAL_GAME_STATE);
   currentGameState.answers = questions.map((name, index) => {

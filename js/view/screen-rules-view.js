@@ -34,24 +34,23 @@ export default class ScreenRulesView extends AbstractView {
 
   bind() {
     const userNameInput = this.element.querySelector(`.rules__input`);
-    const goNextButton = this.element.querySelector(`.rules__button`);
     const goBackButton = this.element.querySelector(`.back`);
 
     userNameInput.addEventListener(`input`, (evt) => {
-      this.onUserNameInput(goNextButton, evt);
-    });
-
-    goNextButton.addEventListener(`click`, () => {
-      this.onGoNextButtonClick();
+      this.onUserNameInput(evt);
     });
 
     goBackButton.addEventListener(`click`, () => {
       this.onGoBackButtonClick();
     });
+
+    this.goNextButton = this.element.querySelector(`.rules__button`);
+    this.goNextButton.addEventListener(`click`, () => {
+      this.onGoNextButtonClick();
+    });
   }
 
-  onUserNameInput(button, evt) {
-    button.disabled = evt.target.value ? false : true;
+  onUserNameInput() {
   }
 
   onGoNextButtonClick() {
