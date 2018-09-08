@@ -9,7 +9,8 @@ import greeting from './screen-01-greeting';
 const screenRulesView = new ScreenRulesView();
 
 screenRulesView.onUserNameInput = (evt) => {
-  screenRulesView.goNextButton.disabled = evt.target.value ? false : true;
+  const canProceed = evt.target.value ? true : false;
+  screenRulesView.switchProceedState(canProceed);
 };
 
 screenRulesView.onGoNextButtonClick = () => {
