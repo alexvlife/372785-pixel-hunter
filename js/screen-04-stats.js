@@ -1,18 +1,14 @@
-import {render, showScreen} from './utilsForBrowser';
+import {showScreen} from './utilsForBrowser';
 import greeting from './screen-01-greeting';
-import getHeaderTemplate from './templates/header.template';
-import getResultTemplate from './templates/result.template';
+import ScreenStatsView from './view/screen-stats-view';
 
 const getStatsScreenElement = (finalGameState) => {
-  const statsScreenTemplate = getHeaderTemplate() +
-                              getResultTemplate(finalGameState);
-  const statsScreenElement = render(statsScreenTemplate);
-  const goBackButton = statsScreenElement.querySelector(`.back`);
-  goBackButton.addEventListener(`click`, () => {
+  const screenStatsView = new ScreenStatsView(finalGameState);
+  screenStatsView.onGoBackButtonClick = () => {
     showScreen(greeting);
-  });
+  };
 
-  return statsScreenElement;
+  return screenStatsView.element;
 };
 
 export default getStatsScreenElement;
