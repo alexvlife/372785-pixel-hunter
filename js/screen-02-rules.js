@@ -8,7 +8,7 @@ import greeting from './screen-01-greeting';
 
 const screenRulesView = new ScreenRulesView();
 
-screenRulesView.onClickGoNextButton = () => {
+screenRulesView.onGoNextButtonClick = () => {
   const currentGameState = Object.assign({}, INITIAL_GAME_STATE);
   currentGameState.answers = questions.map((name, index) => {
     return saveAnswerData(index, ``, ``);
@@ -17,7 +17,7 @@ screenRulesView.onClickGoNextButton = () => {
   showScreen(gameScreenElement);
 };
 
-screenRulesView.onClickGoBackButton = () => {
+screenRulesView.onGoBackButtonClick = () => {
   showScreen(greeting);
 };
 

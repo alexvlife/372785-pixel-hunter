@@ -3,7 +3,7 @@ import {showScreen} from './utilsForBrowser';
 import rules from './screen-02-rules';
 
 const screenGreetingView = new ScreenGreetingView();
-screenGreetingView.onClickButton = () => showScreen(rules);
+screenGreetingView.onGoNextButtonClick = () => showScreen(rules);
 
 const screenGreetingElement = screenGreetingView.element;
 

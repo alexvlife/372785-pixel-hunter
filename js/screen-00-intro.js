@@ -3,7 +3,7 @@ import {showScreen} from './utilsForBrowser';
 import greeting from './screen-01-greeting';
 
 const screenIntroView = new ScreenIntroView();
-screenIntroView.onClickButton = () => showScreen(greeting);
+screenIntroView.onGoNextButtonClick = () => showScreen(greeting);
 
 const screenIntroElement = screenIntroView.element;
 

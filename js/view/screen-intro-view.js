@@ -17,11 +17,11 @@ export default class ScreenIntroView extends AbstractView {
   bind() {
     const goNextButton = this._element.querySelector(`.intro__asterisk`);
     goNextButton.addEventListener(`click`, () => {
-      this.onClickButton();
+      this.onGoNextButtonClick();
     });
   }
 
-  onClickButton() {
+  onGoNextButtonClick() {
   }
 
 }

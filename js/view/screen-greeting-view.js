@@ -33,11 +33,11 @@ export default class ScreenGreetingView extends AbstractView {
   bind() {
     const goNextButton = this._element.querySelector(`.greeting__continue`);
     goNextButton.addEventListener(`click`, () => {
-      this.onClickButton();
+      this.onGoNextButtonClick();
     });
   }
 
-  onClickButton() {
+  onGoNextButtonClick() {
   }
 
 }

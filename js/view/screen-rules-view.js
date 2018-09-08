@@ -42,17 +42,17 @@ export default class ScreenRulesView extends AbstractView {
     });
 
     goNextButton.addEventListener(`click`, () => {
-      this.onClickGoNextButton();
+      this.onGoNextButtonClick();
     });
 
     goBackButton.addEventListener(`click`, () => {
-      this.onClickGoBackButton();
+      this.onGoBackButtonClick();
     });
   }
 
-  onClickGoNextButton() {
+  onGoNextButtonClick() {
   }
 
-  onClickGoBackButton() {
+  onGoBackButtonClick() {
   }
 }
