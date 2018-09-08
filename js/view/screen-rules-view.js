@@ -38,7 +38,7 @@ export default class ScreenRulesView extends AbstractView {
     const goBackButton = this.element.querySelector(`.back`);
 
     userNameInput.addEventListener(`input`, (evt) => {
-      goNextButton.disabled = evt.target.value ? false : true;
+      this.onUserNameInput(goNextButton, evt);
     });
 
     goNextButton.addEventListener(`click`, () => {
@@ -48,6 +48,10 @@ export default class ScreenRulesView extends AbstractView {
     goBackButton.addEventListener(`click`, () => {
       this.onGoBackButtonClick();
     });
+  }
+
+  onUserNameInput(button, evt) {
+    button.disabled = evt.target.value ? false : true;
   }
 
   onGoNextButtonClick() {
