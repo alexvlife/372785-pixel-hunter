@@ -8,7 +8,6 @@ class GameModel {
     this.questions = questions;
     this.currentState = this.addCurrentState();
     this.currentQuestion = this.getCurrentQuestion();
-    this.restart();
   }
 
   get initialState() {
