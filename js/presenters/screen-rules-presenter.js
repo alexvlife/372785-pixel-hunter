@@ -1,39 +1,43 @@
 import ScreenRulesView from '../view/screen-rules-view.js';
-import {showScreen} from '../utilsForBrowser.js';
-import {INITIAL_GAME_STATE} from '../game-config.js';
-import {saveAnswerData} from '../answer-logic.js';
-import questions from '../mocks/questions.js';
-import getGameScreenElement from '../screen-03-game.js';
 import Router from '../router.js';
-
 
 class ScreenRulesPresenter {
   constructor() {
     this.content = new ScreenRulesView();
 
-    this.content.onUserNameInput = (evt) => {
-      const canProceed = evt.target.value ? true : false;
-      this.content.switchProceedState(canProceed);
+    this.content.onPlayerNameInput = (evt) => this.switchStateGoNextButton(evt);
+
+    this.content.onGoNextButtonClick = (evt) => {
+      evt.preventDefault();
+      const playerName = this.getPlayerName();
+      this.goScreenGame(playerName);
     };
 
-    this.content.onGoNextButtonClick = () => {
-      const currentGameState = Object.assign({}, INITIAL_GAME_STATE);
-      currentGameState.answers = questions.map((name, index) => {
-        return saveAnswerData(index, ``, ``);
-      });
-      const gameScreenElement = getGameScreenElement(currentGameState, questions);
-      showScreen(gameScreenElement);
-    };
-
-    this.content.onGoBackButtonClick = () => {
-      Router.showScreenGreeting();
-    };
-
+    this.content.onGoBackButtonClick = () => this.goBackScreen();
   }
 
   get element() {
     return this.content.element;
   }
+
+  switchStateGoNextButton(evt) {
+    const canProceed = evt.target.value ? true : false;
+    this.content.switchProceedState(canProceed);
+  }
+
+  getPlayerName() {
+    const playerNameInput = this.element.querySelector(`.rules__input`);
+    return playerNameInput.value;
+  }
+
+  goScreenGame(playerName) {
+    Router.showScreenGame(playerName);
+  }
+
+  goBackScreen() {
+    Router.showScreenGreeting();
+  }
+
 }
 
 export default ScreenRulesPresenter;

@@ -1,9 +1,11 @@
 import ScreenIntroPresenter from "./presenters/screen-intro-presenter";
 import ScreenGreetingPresenter from "./presenters/screen-greeting-presenter";
 import ScreenRulesPresenter from "./presenters/screen-rules-presenter";
+import ScreenGamePresenter from "./presenters/screen-game-presenter";
+import ScreenStatsPresenter from "./presenters/screen-stats-presenter";
 import {showScreen} from "./utilsForBrowser";
 import GameModel from "./game-model";
-import ScreenGamePresenter from "./presenters/screen-rules-presenter";
+import questions from "./mocks/questions";
 
 export default class Router {
 
@@ -22,16 +24,19 @@ export default class Router {
     showScreen(screenRules.element);
   }
 
-  static showScreenGame(userName) {
-    const gameModel = new GameModel(userName);
-    const screenGame = new ScreenGamePresenter(gameModel);
-    showScreen(screenGame.element);
-    screenGame.startGame();
+  static showScreenGame(playerName) {
+    const gameModel = new GameModel(playerName, questions);
+    this.showScreenGameLevel(gameModel);
+    // screenGame.startGame();
   }
 
-  // static showStats(stats) {
-  //   const statistics = new StatsScreen(stats);
-  //   changeView(statistics.element);
-  // }
+  static showScreenGameLevel(gameModel) {
+    const screenGameLevel = new ScreenGamePresenter(gameModel);
+    showScreen(screenGameLevel.element);
+  }
 
+  static showScreenStats(finalGameState) {
+    const screenStatsLevel = new ScreenStatsPresenter(finalGameState);
+    showScreen(screenStatsLevel.element);
+  }
 }

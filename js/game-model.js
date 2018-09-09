@@ -1,50 +1,43 @@
-// import {
-//   INITIAL_GAME,
-//   changeLevel,
-//   die, tick
-// } from './js/data/quest.js';
-
-// import QUEST from './js/data/quest-data.js';
-
-const getLevel = (state) => QUEST[`level-${state.level}`];
+import {INITIAL_GAME_STATE} from "./game-config";
+import {saveAnswerData} from "./answer-logic";
+import {getNewGameState} from "./game-logic";
 
 class GameModel {
-  constructor(playerName) {
+  constructor(playerName, questions) {
     this.playerName = playerName;
+    this.questions = questions;
+    this.currentState = this.addCurrentState();
+    this.currentQuestion = this.getCurrentQuestion();
     this.restart();
   }
 
-  get state() {
-    return Object.freeze(this._state);
+  get initialState() {
+    return Object.freeze(INITIAL_GAME_STATE);
   }
 
-  hasNextLevel() {
-    return getLevel(this._state.level + 1) !== void 0;
+  addCurrentState() {
+    const answers = this.getDefaultAnswers();
+    return Object.assign({}, this.initialState, {answers});
   }
 
-  nextLevel() {
-    this._state = changeLevel(this._state, this._state.level + 1);
+  updateState(answer) {
+    this.currentState = getNewGameState(this.currentState, answer);
   }
 
-  die() {
-    this._state = die(this._state);
+  getCurrentQuestion() {
+    return this.questions[this.currentState.level];
   }
 
-  restart() {
-    this._state = INITIAL_GAME;
+  updateCurrentQuestion() {
+    this.currentQuestion = this.questions[this.currentState.level];
   }
 
-  isDead() {
-    return this._state.lives <= 0;
+  getDefaultAnswers() {
+    return this.questions.map((name, index) => {
+      return saveAnswerData(index, ``, ``);
+    });
   }
 
-  getCurrentLevel() {
-    return getLevel(this._state);
-  }
-
-  tick() {
-    this._state = tick(this._state);
-  }
 }
 
 export default GameModel;

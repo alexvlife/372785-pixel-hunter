@@ -33,16 +33,16 @@ export default class ScreenRulesView extends AbstractView {
   }
 
   bind() {
-    const userNameInput = this.element.querySelector(`.rules__input`);
+    const playerNameInput = this.element.querySelector(`.rules__input`);
     const goNextButton = this.element.querySelector(`.rules__button`);
     const goBackButton = this.element.querySelector(`.back`);
 
-    userNameInput.addEventListener(`input`, (evt) => {
-      this.onUserNameInput(evt);
+    playerNameInput.addEventListener(`input`, (evt) => {
+      this.onPlayerNameInput(evt);
     });
 
-    goNextButton.addEventListener(`click`, () => {
-      this.onGoNextButtonClick();
+    goNextButton.addEventListener(`click`, (evt) => {
+      this.onGoNextButtonClick(evt);
     });
 
     goBackButton.addEventListener(`click`, () => {
@@ -55,7 +55,7 @@ export default class ScreenRulesView extends AbstractView {
     goNextButton.disabled = !canProceed;
   }
 
-  onUserNameInput() {
+  onPlayerNameInput() {
   }
 
   onGoNextButtonClick() {
