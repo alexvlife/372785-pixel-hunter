@@ -1,9 +1,9 @@
 import {showScreen} from './utilsForBrowser';
-import greeting from './screen-01-greeting';
 import getStatsScreenElement from './screen-04-stats';
 import {checkUserAnswer, UserAnswerTypeMap, saveAnswerData} from './answer-logic';
 import {getNewGameState, goStatsScreen} from './game-logic';
 import ScreenGameView from './view/screen-game-view';
+import Router from './router';
 
 const getGameScreenElement = (gameState, questions) => {
 
@@ -25,7 +25,7 @@ const getGameScreenElement = (gameState, questions) => {
   };
 
   screenGameView.onGoBackButtonClick = () => {
-    showScreen(greeting);
+    Router.showScreenGreeting();
   };
 
   return screenGameView.element;

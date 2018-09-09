@@ -1,11 +1,10 @@
-import {showScreen} from './utilsForBrowser';
-import greeting from './screen-01-greeting';
 import ScreenStatsView from './view/screen-stats-view';
+import Router from './router';
 
 const getStatsScreenElement = (finalGameState) => {
   const screenStatsView = new ScreenStatsView(finalGameState);
   screenStatsView.onGoBackButtonClick = () => {
-    showScreen(greeting);
+    Router.showScreenGreeting();
   };
 
   return screenStatsView.element;
