@@ -59,7 +59,7 @@ export const getNewGameState = (currentGameState, currentAnswer) => {
   return newGameState;
 };
 
-export const goStatsScreen = (newGameState, questions) => {
+export const isGameEnded = (newGameState, questions) => {
   const isLastLevel = (newGameState.level === questions.length);
   return (isLastLevel || (newGameState.lives < 0));
 };

@@ -2,7 +2,7 @@ import ScreenHeaderView from '../view/screen-header-view.js';
 import ScreenGameView from '../view/screen-game-view.js';
 import Router from '../router.js';
 import {PlayerAnswerTypeMap, checkPlayerAnswer, saveAnswerData} from '../answer-logic.js';
-import {goStatsScreen} from '../game-logic.js';
+import {isGameEnded} from '../game-logic.js';
 import {ONE_SECOND} from '../game-config.js';
 
 
@@ -68,7 +68,7 @@ class ScreenGamePresenter {
     this.gameModel.updateCurrentQuestion();
     this.gameModel.makeNewTimer();
 
-    if (goStatsScreen(this.gameModel.currentState, this.gameModel.questions)) {
+    if (isGameEnded(this.gameModel.currentState, this.gameModel.questions)) {
       Router.showScreenStats(this.gameModel.currentState);
     } else {
       Router.showScreenGameLevel(this.gameModel);
