@@ -8,12 +8,13 @@ class ScreenGamePresenter {
   constructor(gameModel) {
     this.gameModel = gameModel;
     this.gameModel.addPlayerAnswer = (evt) => {
-      this.gameModel.playerAnswer = PlayerAnswerTypeMap[this.gameModel.currentQuestion.type](evt);
+      this.gameModel.playerAnswer = (PlayerAnswerTypeMap[this.gameModel.currentQuestion.type](evt)) ?
+        (PlayerAnswerTypeMap[this.gameModel.currentQuestion.type](evt)) : ``;
     };
     this.gameModel.makeNewTimer();
     this.gameModel.timer.onTimeElapsed = () => {
       this.stopTimer();
-      this.gameModel.playerAnswer = ``;
+      this.gameModel.addPlayerAnswer();
       this.goNextScreen(this.gameModel.playerAnswer, this.gameModel.timer.timeLimit);
     };
 
