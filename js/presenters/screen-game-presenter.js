@@ -14,6 +14,7 @@ class ScreenGamePresenter {
     };
 
     this.view = new ScreenGameView(this.gameModel.currentState, this.gameModel.currentQuestion);
+    this.view.updateGameTimer(this.gameModel.timer.timeLimit);
     this.view.onGoBackButtonClick = () => this.goBackScreen();
     this.view.onAnswer = (evt) => {
       const playerAnswer = this.getPlayerAnswer(evt);
@@ -33,6 +34,7 @@ class ScreenGamePresenter {
   startTimer() {
     this._timeout = setTimeout(() => {
       this.gameModel.timer.tick();
+      this.view.updateGameTimer(this.gameModel.timer.timeLimit);
       this.startTimer();
     }, ONE_SECOND);
   }
