@@ -8,14 +8,17 @@ class ScreenGamePresenter {
   constructor(gameModel) {
     this.gameModel = gameModel;
     this.gameModel.addPlayerAnswer = (evt) => {
-      this.gameModel.playerAnswer = (PlayerAnswerTypeMap[this.gameModel.currentQuestion.type](evt)) ?
-        (PlayerAnswerTypeMap[this.gameModel.currentQuestion.type](evt)) : ``;
+      this.gameModel.playerAnswer = PlayerAnswerTypeMap[this.gameModel.currentQuestion.type](evt);
+    };
+    this.gameModel.saveAnswerData = () => {
+      const answerKind = checkPlayerAnswer(this.gameModel.playerAnswer, this.gameModel.currentQuestion.rightAnswer);
+      this.gameModel.answerData = saveAnswerData(this.gameModel.currentState.level, answerKind, this.gameModel.timer.timeLimit);
     };
     this.gameModel.makeNewTimer();
     this.gameModel.timer.onTimeElapsed = () => {
       this.stopTimer();
-      this.gameModel.addPlayerAnswer();
-      this.goNextScreen(this.gameModel.playerAnswer, this.gameModel.timer.timeLimit);
+      this.gameModel.playerAnswer = ``;
+      this.goNextScreen();
     };
 
     this.view = new ScreenGameView(this.gameModel.currentState, this.gameModel.currentQuestion);
@@ -25,7 +28,7 @@ class ScreenGamePresenter {
       this.gameModel.addPlayerAnswer(evt);
       if (this.gameModel.playerAnswer) {
         this.stopTimer();
-        this.goNextScreen(this.gameModel.playerAnswer, this.gameModel.timer.timeLimit);
+        this.goNextScreen();
       }
     };
 
@@ -48,11 +51,10 @@ class ScreenGamePresenter {
     clearTimeout(this._timeout);
   }
 
-  goNextScreen(playerAnswer, answerTime) {
-    const answerKind = checkPlayerAnswer(playerAnswer, this.gameModel.currentQuestion.rightAnswer);
-    const answer = saveAnswerData(this.gameModel.currentState.level, answerKind, answerTime);
+  goNextScreen() {
     this.stopTimer();
-    this.gameModel.updateState(answer);
+    this.gameModel.saveAnswerData();
+    this.gameModel.updateState(this.gameModel.answerData);
     this.gameModel.updateCurrentQuestion();
     this.gameModel.makeNewTimer();
 

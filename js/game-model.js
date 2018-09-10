@@ -34,6 +34,9 @@ class GameModel {
 
   addPlayerAnswer() {
   }
+
+  saveAnswerData() {
+  }
 }
 
 export default GameModel;
