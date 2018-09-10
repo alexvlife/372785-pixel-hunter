@@ -1,4 +1,5 @@
 import AbstractView from "./abstract-view";
+import getHeaderTemplate from "../templates/header.template";
 import getLevelTemplate from "../templates/level.template";
 
 export default class ScreenGameView extends AbstractView {
@@ -10,15 +11,25 @@ export default class ScreenGameView extends AbstractView {
   }
 
   get template() {
-    return getLevelTemplate(this.gameState.answers, this.currentQuestion);
+    return getHeaderTemplate(this.gameState.lives)
+      + getLevelTemplate(this.gameState.answers, this.currentQuestion);
   }
 
   bind() {
+    const goBackButton = this.element.querySelector(`.back`);
+
+    goBackButton.addEventListener(`click`, () => {
+      this.onGoBackButtonClick();
+    });
+
     this._element.addEventListener(`click`, (evt) => {
       this.onAnswer(evt);
     });
   }
 
   onAnswer() {
+  }
+
+  onGoBackButtonClick() {
   }
 }

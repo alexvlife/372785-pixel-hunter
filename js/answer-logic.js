@@ -1,4 +1,4 @@
-import {AnswerType, QuestionType} from './game-config';
+import {AnswerType, QuestionType, AnswerTimeType} from './game-config';
 
 const getPlayerAnswerType1 = () => {
   const playerAnswers = document.querySelectorAll(`input[type=radio]:checked`);
@@ -25,13 +25,25 @@ export const checkPlayerAnswer = (playerAnswer, rightAnswer) => {
   return playerAnswer === rightAnswer;
 };
 
-export const saveAnswerData = (currentGameLevel, answerKind, answerTime) => {
+export const saveAnswerData = (currentGameLevel, answerKind, timeLimit) => {
+  const answerTime = AnswerTimeType.LIMIT - timeLimit;
   const answerData = {
     id: currentGameLevel,
     isCorrect: answerKind,
     time: answerTime,
     type: AnswerType.UNANSWERED,
     defineType() {
+      if (this.time >= AnswerTimeType.LIMIT) {
+        return;
+      }
+      if (this.isCorrect && this.time <= AnswerTimeType.FAST) {
+        this.type = AnswerType.FAST;
+        return;
+      }
+      if (this.isCorrect && this.time > AnswerTimeType.SLOW) {
+        this.type = AnswerType.SLOW;
+        return;
+      }
       this.type = (this.isCorrect) ? AnswerType.CORRECT : AnswerType.WRONG;
     },
   };

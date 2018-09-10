@@ -1,6 +1,6 @@
 import stateTemplate from './state.template';
 
-const getHeaderTemplate = (currentLives) => {
+const getHeaderTemplate = (currentLives, timeLimit) => {
   return `<header class="header">
             <button class="back">
               <span class="visually-hidden">Вернуться к началу</span>
@@ -11,7 +11,7 @@ const getHeaderTemplate = (currentLives) => {
                 <use xlink:href="img/sprite.svg#logo-small"></use>
               </svg>
             </button>
-            ${stateTemplate(currentLives)}
+            ${stateTemplate(currentLives, timeLimit)}
           </header>`;
 };
 

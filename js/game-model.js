@@ -1,6 +1,7 @@
-import {INITIAL_GAME_STATE} from "./game-config";
+import {INITIAL_GAME_STATE, AnswerTimeType} from "./game-config";
 import {saveAnswerData} from "./answer-logic";
 import {getNewGameState} from "./game-logic";
+import {makeTimer} from "./timer";
 
 class GameModel {
   constructor(playerName, questions) {
@@ -35,6 +36,10 @@ class GameModel {
     return this.questions.map((name, index) => {
       return saveAnswerData(index, ``, ``);
     });
+  }
+
+  makeNewTimer() {
+    this.timer = makeTimer(AnswerTimeType.LIMIT);
   }
 
 }

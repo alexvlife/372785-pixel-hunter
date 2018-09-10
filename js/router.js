@@ -32,6 +32,7 @@ export default class Router {
 
   static showScreenGameLevel(gameModel) {
     const screenGameLevel = new ScreenGamePresenter(gameModel);
+    screenGameLevel.startTimer();
     showScreen(screenGameLevel.element);
   }
 
