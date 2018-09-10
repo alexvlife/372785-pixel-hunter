@@ -1,14 +1,12 @@
+import AbstractPresenter from './abstract-presenter.js';
 import ScreenStatsView from '../view/screen-stats-view.js';
 import Router from '../router.js';
 
-class ScreenStatsPresenter {
+class ScreenStatsPresenter extends AbstractPresenter {
   constructor(finalGameState) {
+    super();
     this.view = new ScreenStatsView(finalGameState);
     this.view.onGoBackButtonClick = () => this.goBackScreen();
-  }
-
-  get element() {
-    return this.view.element;
   }
 
   goBackScreen() {

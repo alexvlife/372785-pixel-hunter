@@ -1,11 +1,13 @@
+import AbstractPresenter from './abstract-presenter.js';
 import ScreenGameView from '../view/screen-game-view.js';
 import Router from '../router.js';
 import {PlayerAnswerTypeMap, checkPlayerAnswer, saveAnswerData} from '../answer-logic.js';
 import {isGameEnded} from '../game-logic.js';
 import {ONE_SECOND} from '../game-config.js';
 
-class ScreenGamePresenter {
+class ScreenGamePresenter extends AbstractPresenter {
   constructor(gameModel) {
+    super();
     this.gameModel = gameModel;
     this.gameModel.addPlayerAnswer = (evt) => {
       this.gameModel.playerAnswer = PlayerAnswerTypeMap[this.gameModel.currentQuestion.type](evt);
@@ -33,10 +35,6 @@ class ScreenGamePresenter {
     };
 
     this._timeout = null;
-  }
-
-  get element() {
-    return this.view.element;
   }
 
   startTimer() {
