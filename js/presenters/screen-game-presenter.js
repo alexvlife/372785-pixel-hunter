@@ -7,20 +7,24 @@ import {ONE_SECOND} from '../game-config.js';
 class ScreenGamePresenter {
   constructor(gameModel) {
     this.gameModel = gameModel;
+    this.gameModel.addPlayerAnswer = (evt) => {
+      this.gameModel.playerAnswer = PlayerAnswerTypeMap[this.gameModel.currentQuestion.type](evt);
+    };
     this.gameModel.makeNewTimer();
     this.gameModel.timer.onTimeElapsed = () => {
       this.stopTimer();
-      this.goNextScreen(``, this.gameModel.timer.timeLimit);
+      this.gameModel.playerAnswer = ``;
+      this.goNextScreen(this.gameModel.playerAnswer, this.gameModel.timer.timeLimit);
     };
 
     this.view = new ScreenGameView(this.gameModel.currentState, this.gameModel.currentQuestion);
     this.view.updateGameTimer(this.gameModel.timer.timeLimit);
     this.view.onGoBackButtonClick = () => this.goBackScreen();
     this.view.onAnswer = (evt) => {
-      const playerAnswer = this.getPlayerAnswer(evt);
-      if (playerAnswer) {
+      this.gameModel.addPlayerAnswer(evt);
+      if (this.gameModel.playerAnswer) {
         this.stopTimer();
-        this.goNextScreen(playerAnswer, this.gameModel.timer.timeLimit);
+        this.goNextScreen(this.gameModel.playerAnswer, this.gameModel.timer.timeLimit);
       }
     };
 
@@ -41,10 +45,6 @@ class ScreenGamePresenter {
 
   stopTimer() {
     clearTimeout(this._timeout);
-  }
-
-  getPlayerAnswer(evt) {
-    return PlayerAnswerTypeMap[this.gameModel.currentQuestion.type](evt);
   }
 
   goNextScreen(playerAnswer, answerTime) {

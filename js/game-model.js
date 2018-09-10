@@ -31,6 +31,9 @@ class GameModel {
   makeNewTimer() {
     this.timer = makeTimer(AnswerTimeType.LIMIT);
   }
+
+  addPlayerAnswer() {
+  }
 }
 
 export default GameModel;
