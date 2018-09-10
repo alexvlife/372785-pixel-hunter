@@ -14,9 +14,8 @@ class ScreenGamePresenter extends AbstractPresenter {
     };
     this.gameModel.saveAnswerData = () => {
       const answerKind = checkPlayerAnswer(this.gameModel.playerAnswer, this.gameModel.currentQuestion.rightAnswer);
-      this.gameModel.answerData = saveAnswerData(this.gameModel.currentState.level, answerKind, this.gameModel.timer.timeLimit);
+      this.gameModel.answerData = saveAnswerData(this.gameModel.currentState.level, answerKind, this.gameModel.timer.timeLeft);
     };
-    this.gameModel.makeNewTimer();
     this.gameModel.timer.onTimeElapsed = () => {
       this.stopTimer();
       this.gameModel.playerAnswer = ``;
@@ -24,7 +23,7 @@ class ScreenGamePresenter extends AbstractPresenter {
     };
 
     this.view = new ScreenGameView(this.gameModel.currentState, this.gameModel.currentQuestion);
-    this.view.updateGameTimer(this.gameModel.timer.timeLimit);
+    this.view.updateGameTimer(this.gameModel.timer.timeLeft);
     this.view.onGoBackButtonClick = () => this.goBackScreen();
     this.view.onAnswer = (evt) => {
       this.gameModel.addPlayerAnswer(evt);
@@ -40,7 +39,7 @@ class ScreenGamePresenter extends AbstractPresenter {
   startTimer() {
     this._timeout = setTimeout(() => {
       this.gameModel.timer.tick();
-      this.view.updateGameTimer(this.gameModel.timer.timeLimit);
+      this.view.updateGameTimer(this.gameModel.timer.timeLeft);
       this.startTimer();
     }, ONE_SECOND);
   }
@@ -54,7 +53,7 @@ class ScreenGamePresenter extends AbstractPresenter {
     this.gameModel.saveAnswerData();
     this.gameModel.updateState(this.gameModel.answerData);
     this.gameModel.updateCurrentQuestion();
-    this.gameModel.makeNewTimer();
+    this.gameModel.timer.reset();
 
     if (isGameEnded(this.gameModel.currentState, this.gameModel.questions)) {
       Router.showScreenStats(this.gameModel.currentState);

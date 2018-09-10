@@ -7,6 +7,7 @@ class GameModel {
   constructor(playerName, questions) {
     this.playerName = playerName;
     this.questions = questions;
+    this.timer = makeTimer(AnswerTimeType.LIMIT);
     this.defaultAnswers = this.questions.map((name, index) => {
       return saveAnswerData(index, ``, ``);
     });
@@ -26,10 +27,6 @@ class GameModel {
 
   updateCurrentQuestion() {
     this.currentQuestion = this.questions[this.currentState.level];
-  }
-
-  makeNewTimer() {
-    this.timer = makeTimer(AnswerTimeType.LIMIT);
   }
 
   addPlayerAnswer() {

@@ -25,8 +25,8 @@ export const checkPlayerAnswer = (playerAnswer, rightAnswer) => {
   return playerAnswer === rightAnswer;
 };
 
-export const saveAnswerData = (currentGameLevel, answerKind, timeLimit) => {
-  const answerTime = AnswerTimeType.LIMIT - timeLimit;
+export const saveAnswerData = (currentGameLevel, answerKind, timeLeft) => {
+  const answerTime = AnswerTimeType.LIMIT - timeLeft;
   const answerData = {
     id: currentGameLevel,
     isCorrect: answerKind,
