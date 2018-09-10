@@ -3,12 +3,12 @@ import Router from '../router.js';
 
 class ScreenGreetingPresenter {
   constructor() {
-    this.content = new ScreenGreetingView();
-    this.content.onGoNextButtonClick = () => this.goNextScreen();
+    this.view = new ScreenGreetingView();
+    this.view.onGoNextButtonClick = () => this.goNextScreen();
   }
 
   get element() {
-    return this.content.element;
+    return this.view.element;
   }
 
   goNextScreen() {

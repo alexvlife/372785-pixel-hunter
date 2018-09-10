@@ -3,12 +3,12 @@ import Router from '../router.js';
 
 class ScreenStatsPresenter {
   constructor(finalGameState) {
-    this.content = new ScreenStatsView(finalGameState);
-    this.content.onGoBackButtonClick = () => this.goBackScreen();
+    this.view = new ScreenStatsView(finalGameState);
+    this.view.onGoBackButtonClick = () => this.goBackScreen();
   }
 
   get element() {
-    return this.content.element;
+    return this.view.element;
   }
 
   goBackScreen() {

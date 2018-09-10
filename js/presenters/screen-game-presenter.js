@@ -18,8 +18,8 @@ class ScreenGamePresenter {
     this.header = new ScreenHeaderView(this.gameModel.currentState, this.gameModel.timer.timeLimit);
     this.header.onGoBackButtonClick = () => this.goBackScreen();
 
-    this.content = new ScreenGameView(this.gameModel.currentState, this.gameModel.currentQuestion);
-    this.content.onAnswer = (evt) => {
+    this.view = new ScreenGameView(this.gameModel.currentState, this.gameModel.currentQuestion);
+    this.view.onAnswer = (evt) => {
       const playerAnswer = this.getPlayerAnswer(evt);
       if (playerAnswer) {
         this.stopTimer();
@@ -29,7 +29,7 @@ class ScreenGamePresenter {
 
     this.root = document.createElement(`div`);
     this.root.appendChild(this.header.element);
-    this.root.appendChild(this.content.element);
+    this.root.appendChild(this.view.element);
 
     this._timeout = null;
   }

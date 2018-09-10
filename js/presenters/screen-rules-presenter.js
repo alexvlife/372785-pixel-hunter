@@ -3,26 +3,26 @@ import Router from '../router.js';
 
 class ScreenRulesPresenter {
   constructor() {
-    this.content = new ScreenRulesView();
+    this.view = new ScreenRulesView();
 
-    this.content.onPlayerNameInput = (evt) => this.switchStateGoNextButton(evt);
+    this.view.onPlayerNameInput = (evt) => this.switchStateGoNextButton(evt);
 
-    this.content.onGoNextButtonClick = (evt) => {
+    this.view.onGoNextButtonClick = (evt) => {
       evt.preventDefault();
       const playerName = this.getPlayerName();
       this.goScreenGame(playerName);
     };
 
-    this.content.onGoBackButtonClick = () => this.goBackScreen();
+    this.view.onGoBackButtonClick = () => this.goBackScreen();
   }
 
   get element() {
-    return this.content.element;
+    return this.view.element;
   }
 
   switchStateGoNextButton(evt) {
     const canProceed = evt.target.value ? true : false;
-    this.content.switchProceedState(canProceed);
+    this.view.switchProceedState(canProceed);
   }
 
   getPlayerName() {
