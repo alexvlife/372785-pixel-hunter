@@ -5,6 +5,7 @@ import {
   getTotalPoints,
   ResultType,
 } from '../game-logic';
+import {EMPTY_STRING} from '../game-config';
 
 const getResultTemplate = (finalGameState) => {
 
@@ -36,11 +37,11 @@ const getResultTemplate = (finalGameState) => {
     : `<td class="result__total  result__total--final">fail</td>`;
 
   const finalScoreTemplate = (isGamePassed)
-    ? `${resultTemplates.join(``)}
+    ? `${resultTemplates.join(EMPTY_STRING)}
       <tr>
         <td colspan="5" class="result__total result__total--final">${gameResultTotal}</td>
       </tr>`
-    : ``;
+    : EMPTY_STRING;
 
   return `<section class="result">
             <h2 class="result__title">${gameStatusTitle}</h2>

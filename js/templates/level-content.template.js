@@ -1,3 +1,5 @@
+import {EMPTY_STRING} from "../game-config";
+
 const getLevelContentType1Template = (question) => {
   return `<form class="game__content game__content--wide">
             <div class="game__option">
@@ -30,7 +32,7 @@ const getLevelContentType2Template = (question) => {
                             </div>`);
   });
   return `<form class="game__content">
-            ${contentTemplates.join(``)}
+            ${contentTemplates.join(EMPTY_STRING)}
           </form>`;
 };
 
@@ -43,7 +45,7 @@ const getLevelContentType3Template = (question) => {
     );
   });
   return `<form class="game__content game__content--triple">
-            ${contentTemplates.join(``)}
+            ${contentTemplates.join(EMPTY_STRING)}
           </form>`;
 };
 

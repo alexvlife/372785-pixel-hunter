@@ -1,4 +1,4 @@
-import {INITIAL_GAME_STATE, AnswerTimeType} from "./game-config";
+import {AnswerTimeType, EMPTY_STRING, INITIAL_GAME_STATE} from "./game-config";
 import {saveAnswerData} from "./answer-logic";
 import {getNewGameState} from "./game-logic";
 import {makeTimer} from "./timer";
@@ -9,7 +9,7 @@ class GameModel {
     this.questions = questions;
     this.timer = makeTimer(AnswerTimeType.LIMIT);
     this.defaultAnswers = this.questions.map((name, index) => {
-      return saveAnswerData(index, ``, ``);
+      return saveAnswerData(index, EMPTY_STRING, EMPTY_STRING);
     });
     this.currentState = Object.assign({}, this.initialState, {
       answers: this.defaultAnswers
