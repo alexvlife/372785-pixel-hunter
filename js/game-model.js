@@ -1,5 +1,5 @@
 import {AnswerTimeType, EMPTY_STRING, INITIAL_GAME_STATE} from "./game-config";
-import {saveAnswerData} from "./answer-logic";
+import {checkPlayerAnswer, PlayerAnswerTypeMap, saveAnswerData} from "./answer-logic";
 import {getNewGameState} from "./game-logic";
 import {makeTimer} from "./timer";
 
@@ -29,11 +29,13 @@ class GameModel {
     this.currentQuestion = this.questions[this.currentState.level];
   }
 
-  addPlayerAnswer() {
+  addPlayerAnswer(evt) {
+    this.playerAnswer = PlayerAnswerTypeMap[this.currentQuestion.type](evt);
   }
 
   saveAnswerData() {
+    const answerKind = checkPlayerAnswer(this.playerAnswer, this.currentQuestion.rightAnswer);
+    this.answerData = saveAnswerData(this.currentState.level, answerKind, this.timer.timeLeft);
   }
 }
-
 export default GameModel;

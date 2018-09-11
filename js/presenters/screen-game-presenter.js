@@ -1,7 +1,6 @@
 import AbstractPresenter from './abstract-presenter.js';
 import ScreenGameView from '../view/screen-game-view.js';
 import Router from '../router.js';
-import {PlayerAnswerTypeMap, checkPlayerAnswer, saveAnswerData} from '../answer-logic.js';
 import {isGameEnded} from '../game-logic.js';
 import {EMPTY_STRING, ONE_SECOND} from '../game-config.js';
 
@@ -9,13 +8,6 @@ class ScreenGamePresenter extends AbstractPresenter {
   constructor(gameModel) {
     super();
     this.gameModel = gameModel;
-    this.gameModel.addPlayerAnswer = (evt) => {
-      this.gameModel.playerAnswer = PlayerAnswerTypeMap[this.gameModel.currentQuestion.type](evt);
-    };
-    this.gameModel.saveAnswerData = () => {
-      const answerKind = checkPlayerAnswer(this.gameModel.playerAnswer, this.gameModel.currentQuestion.rightAnswer);
-      this.gameModel.answerData = saveAnswerData(this.gameModel.currentState.level, answerKind, this.gameModel.timer.timeLeft);
-    };
     this.gameModel.timer.onTimeElapsed = () => {
       this.gameModel.playerAnswer = EMPTY_STRING;
       this.goNextScreen();
