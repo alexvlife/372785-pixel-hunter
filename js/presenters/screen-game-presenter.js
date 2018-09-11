@@ -17,21 +17,11 @@ class ScreenGamePresenter extends AbstractPresenter {
       this.gameModel.answerData = saveAnswerData(this.gameModel.currentState.level, answerKind, this.gameModel.timer.timeLeft);
     };
     this.gameModel.timer.onTimeElapsed = () => {
-      this.stopTimer();
       this.gameModel.playerAnswer = ``;
       this.goNextScreen();
     };
 
-    this.view = new ScreenGameView(this.gameModel.currentState, this.gameModel.currentQuestion);
-    this.view.updateGameTimer(this.gameModel.timer.timeLeft);
-    this.view.onGoBackButtonClick = () => this.goBackScreen();
-    this.view.onAnswer = (evt) => {
-      this.gameModel.addPlayerAnswer(evt);
-      if (this.gameModel.playerAnswer) {
-        this.stopTimer();
-        this.goNextScreen();
-      }
-    };
+    this.view = this.generateView();
 
     this._timeout = null;
   }
@@ -49,17 +39,31 @@ class ScreenGamePresenter extends AbstractPresenter {
   }
 
   goNextScreen() {
-    this.stopTimer();
     this.gameModel.saveAnswerData();
     this.gameModel.updateState(this.gameModel.answerData);
     this.gameModel.updateCurrentQuestion();
-    this.gameModel.timer.reset();
 
     if (isGameEnded(this.gameModel.currentState, this.gameModel.questions)) {
+      this.stopTimer();
       Router.showScreenStats(this.gameModel.currentState);
     } else {
-      Router.showScreenGameLevel(this.gameModel);
+      this.gameModel.timer.reset();
+      this.view = this.generateView();
+      this.show();
     }
+  }
+
+  generateView() {
+    const view = new ScreenGameView(this.gameModel.currentState, this.gameModel.currentQuestion);
+    view.updateGameTimer(this.gameModel.timer.timeLeft);
+    view.onGoBackButtonClick = () => this.goBackScreen();
+    view.onAnswer = (evt) => {
+      this.gameModel.addPlayerAnswer(evt);
+      if (this.gameModel.playerAnswer) {
+        this.goNextScreen();
+      }
+    };
+    return view;
   }
 
   goBackScreen() {
