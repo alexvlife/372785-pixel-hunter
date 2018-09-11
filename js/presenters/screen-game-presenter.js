@@ -10,6 +10,7 @@ class ScreenGamePresenter extends AbstractPresenter {
     this.gameModel = gameModel;
     this.gameModel.timer.onTimeElapsed = () => {
       this.gameModel.playerAnswer = EMPTY_STRING;
+      this.gameModel.saveAnswerData();
       this.goNextScreen();
     };
 
@@ -31,10 +32,6 @@ class ScreenGamePresenter extends AbstractPresenter {
   }
 
   goNextScreen() {
-    this.gameModel.saveAnswerData();
-    this.gameModel.updateState(this.gameModel.answerData);
-    this.gameModel.updateCurrentQuestion();
-
     if (isGameEnded(this.gameModel.currentState, this.gameModel.questions)) {
       this.stopTimer();
       Router.showScreenStats(this.gameModel.currentState);
@@ -52,6 +49,7 @@ class ScreenGamePresenter extends AbstractPresenter {
     view.onAnswer = (evt) => {
       this.gameModel.addPlayerAnswer(evt);
       if (this.gameModel.playerAnswer) {
+        this.gameModel.saveAnswerData();
         this.goNextScreen();
       }
     };

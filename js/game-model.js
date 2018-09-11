@@ -20,9 +20,15 @@ class GameModel {
   get initialState() {
     return Object.freeze(INITIAL_GAME_STATE);
   }
+  saveAnswerData() {
+    const answerKind = checkPlayerAnswer(this.playerAnswer, this.currentQuestion.rightAnswer);
+    this.answerData = saveAnswerData(this.currentState.level, answerKind, this.timer.timeLeft);
+    this.updateState();
+  }
 
-  updateState(answer) {
-    this.currentState = getNewGameState(this.currentState, answer);
+  updateState() {
+    this.currentState = getNewGameState(this.currentState, this.answerData);
+    this.updateCurrentQuestion();
   }
 
   updateCurrentQuestion() {
@@ -33,9 +39,6 @@ class GameModel {
     this.playerAnswer = PlayerAnswerTypeMap[this.currentQuestion.type](evt);
   }
 
-  saveAnswerData() {
-    const answerKind = checkPlayerAnswer(this.playerAnswer, this.currentQuestion.rightAnswer);
-    this.answerData = saveAnswerData(this.currentState.level, answerKind, this.timer.timeLeft);
-  }
+
 }
 export default GameModel;
