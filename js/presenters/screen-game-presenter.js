@@ -2,14 +2,14 @@ import AbstractPresenter from './abstract-presenter.js';
 import ScreenGameView from '../view/screen-game-view.js';
 import Router from '../router.js';
 import {isGameEnded} from '../game-logic.js';
-import {EMPTY_STRING, ONE_SECOND} from '../game-config.js';
+import {EMPTY_ANSWER_DATA, ONE_SECOND} from '../game-config.js';
 
 class ScreenGamePresenter extends AbstractPresenter {
   constructor(gameModel) {
     super();
     this.gameModel = gameModel;
     this.gameModel.timer.onTimeElapsed = () => {
-      this.gameModel.playerAnswer = EMPTY_STRING;
+      this.gameModel.playerAnswer = EMPTY_ANSWER_DATA;
       this.gameModel.saveAnswerData();
       this.goNextScreen();
     };

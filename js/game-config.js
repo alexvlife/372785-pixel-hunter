@@ -25,4 +25,4 @@ export const AnswerTimeType = {
 
 export const ONE_SECOND = 1000;
 
-export const EMPTY_STRING = ``;
+export const EMPTY_ANSWER_DATA = ``;
