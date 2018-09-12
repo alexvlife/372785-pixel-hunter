@@ -7,7 +7,6 @@ import GameModel from "./game-model";
 import questions from "./mocks/questions";
 
 export default class Router {
-
   static showScreenIntro() {
     const screenIntro = new ScreenIntroPresenter();
     screenIntro.show();
@@ -25,13 +24,8 @@ export default class Router {
 
   static showScreenGame(playerName) {
     const gameModel = new GameModel(playerName, questions);
-    this.showScreenGameLevel(gameModel);
-  }
-
-  static showScreenGameLevel(gameModel) {
-    const screenGameLevel = new ScreenGamePresenter(gameModel);
-    screenGameLevel.startTimer();
-    screenGameLevel.show();
+    const game = new ScreenGamePresenter(gameModel);
+    game.init();
   }
 
   static showScreenStats(finalGameState) {

@@ -20,6 +20,7 @@ class GameModel {
   get initialState() {
     return Object.freeze(INITIAL_GAME_STATE);
   }
+
   saveAnswerData() {
     const answerKind = checkPlayerAnswer(this.playerAnswer, this.currentQuestion.rightAnswer);
     this.answerData = saveAnswerData(this.currentState.level, answerKind, this.timer.timeLeft);
@@ -40,4 +41,5 @@ class GameModel {
   }
 
 }
+
 export default GameModel;

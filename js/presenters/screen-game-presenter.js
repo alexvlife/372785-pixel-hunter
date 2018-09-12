@@ -19,6 +19,11 @@ class ScreenGamePresenter extends AbstractPresenter {
     this._timeout = null;
   }
 
+  init() {
+    this.startTimer();
+    this.show();
+  }
+
   startTimer() {
     this._timeout = setTimeout(() => {
       this.gameModel.timer.tick();
