@@ -39,6 +39,5 @@ class GameModel {
     this.playerAnswer = PlayerAnswerTypeMap[this.currentQuestion.type](evt);
   }
 
-
 }
 export default GameModel;

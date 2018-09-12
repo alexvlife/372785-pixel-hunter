@@ -1,4 +1,4 @@
-import {AnswerType, QuestionType, AnswerTimeType} from './game-config';
+import {AnswerType, QuestionType, AnswerTimeType, EMPTY_ANSWER_DATA} from './game-config';
 
 const getPlayerAnswerType1 = () => {
   const playerAnswers = document.querySelectorAll(`input[type=radio]:checked`);
@@ -33,7 +33,7 @@ export const saveAnswerData = (currentGameLevel, answerKind, timeLeft) => {
     time: answerTime,
     type: AnswerType.UNANSWERED,
     defineType() {
-      if (this.time >= AnswerTimeType.LIMIT) {
+      if (this.isCorrect === EMPTY_ANSWER_DATA) {
         return;
       }
       if (this.isCorrect && this.time <= AnswerTimeType.FAST) {
