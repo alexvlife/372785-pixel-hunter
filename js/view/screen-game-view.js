@@ -27,6 +27,11 @@ export default class ScreenGameView extends AbstractView {
     });
   }
 
+  updateGameTimer(timeLeft) {
+    const gameTimerElement = this.element.querySelector(`.game__timer`);
+    gameTimerElement.innerHTML = timeLeft;
+  }
+
   onAnswer() {
   }
 

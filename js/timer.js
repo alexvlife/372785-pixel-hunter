@@ -1,13 +1,16 @@
 export const makeTimer = (limit) => {
   return {
-    timeLimit: limit,
+    timeLeft: limit,
     tick() {
-      if (this.timeLimit > 0) {
-        --this.timeLimit;
+      if (this.timeLeft > 0) {
+        --this.timeLeft;
       }
-      if (this.timeLimit === 0) {
+      if (this.timeLeft === 0) {
         this.onTimeElapsed();
       }
+    },
+    reset() {
+      this.timeLeft = limit;
     },
     onTimeElapsed() {
     }

@@ -1,37 +1,49 @@
-import {AnswerType, QuestionType} from './game-config';
+import {AnswerType, QuestionType, AnswerTimeType, EMPTY_ANSWER_DATA} from './game-config';
 
-const getUserAnswerType1 = () => {
-  const userAnswers = document.querySelectorAll(`input[type=radio]:checked`);
-  return (userAnswers.length === 1) ? userAnswers[0].value : false;
+const getPlayerAnswerType1 = () => {
+  const playerAnswers = document.querySelectorAll(`input[type=radio]:checked`);
+  return (playerAnswers.length === 1) ? playerAnswers[0].value : false;
 };
 
-const getUserAnswerType2 = () => {
-  const userAnswers = document.querySelectorAll(`input[type=radio]:checked`);
-  return (userAnswers.length === 2) ? (userAnswers[0].value + `-` + userAnswers[1].value) : false;
+const getPlayerAnswerType2 = () => {
+  const playerAnswers = document.querySelectorAll(`input[type=radio]:checked`);
+  return (playerAnswers.length === 2) ? (playerAnswers[0].value + `-` + playerAnswers[1].value) : false;
 };
 
-const getUserAnswerType3 = (evt) => {
-  const userAnswer = evt.target.src;
-  return (userAnswer) ? userAnswer : false;
+const getPlayerAnswerType3 = (evt) => {
+  const playerAnswer = evt.target.src;
+  return (playerAnswer) ? playerAnswer : false;
 };
 
-export const UserAnswerTypeMap = {
-  [QuestionType.ONE_IMAGE]: getUserAnswerType1,
-  [QuestionType.TWO_IMAGES]: getUserAnswerType2,
-  [QuestionType.THREE_IMAGES]: getUserAnswerType3,
+export const PlayerAnswerTypeMap = {
+  [QuestionType.ONE_IMAGE]: getPlayerAnswerType1,
+  [QuestionType.TWO_IMAGES]: getPlayerAnswerType2,
+  [QuestionType.THREE_IMAGES]: getPlayerAnswerType3,
 };
 
-export const checkUserAnswer = (userAnswer, rightAnswer) => {
-  return userAnswer === rightAnswer;
+export const checkPlayerAnswer = (playerAnswer, rightAnswer) => {
+  return playerAnswer === rightAnswer;
 };
 
-export const saveAnswerData = (currentGameLevel, answerKind, answerTime) => {
+export const saveAnswerData = (currentGameLevel, answerKind, timeLeft) => {
+  const answerTime = AnswerTimeType.LIMIT - timeLeft;
   const answerData = {
     id: currentGameLevel,
     isCorrect: answerKind,
     time: answerTime,
     type: AnswerType.UNANSWERED,
     defineType() {
+      if (this.isCorrect === EMPTY_ANSWER_DATA) {
+        return;
+      }
+      if (this.isCorrect && this.time <= AnswerTimeType.FAST) {
+        this.type = AnswerType.FAST;
+        return;
+      }
+      if (this.isCorrect && this.time > AnswerTimeType.SLOW) {
+        this.type = AnswerType.SLOW;
+        return;
+      }
       this.type = (this.isCorrect) ? AnswerType.CORRECT : AnswerType.WRONG;
     },
   };

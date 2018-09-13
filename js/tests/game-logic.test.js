@@ -9,17 +9,17 @@ import {
 describe(`Game logic tests`, () => {
   describe(`Scoring function - calcGameScore`, () => {
     it(`Should return -1, when the player answered less than 10 questions`, () => {
-      const userAnswers = [
+      const playerAnswers = [
         new Answer(false, 10),
         new Answer(false, 21),
         new Answer(true, 16),
         new Answer(false, 10)
       ];
-      assert.equal(calcGameScore(userAnswers, 0), -1);
+      assert.equal(calcGameScore(playerAnswers, 0), -1);
     });
     it(`Should return 1150, when the player answered all questions correctly,
         not fastly, not slowly, and had all lives`, () => {
-      const userAnswers = [
+      const playerAnswers = [
         new Answer(true, 11),
         new Answer(true, 12),
         new Answer(true, 13),
@@ -31,11 +31,11 @@ describe(`Game logic tests`, () => {
         new Answer(true, 19),
         new Answer(true, 20)
       ];
-      assert.equal(calcGameScore(userAnswers, 3), 1150);
+      assert.equal(calcGameScore(playerAnswers, 3), 1150);
     });
     it(`Should return 700, when the player answered 7 questions correctly,
         not fastly, not slowly, and had no lives`, () => {
-      const userAnswers = [
+      const playerAnswers = [
         new Answer(true, 11),
         new Answer(true, 12),
         new Answer(true, 13),
@@ -47,11 +47,11 @@ describe(`Game logic tests`, () => {
         new Answer(false, 19),
         new Answer(false, 20)
       ];
-      assert.equal(calcGameScore(userAnswers, 0), 700);
+      assert.equal(calcGameScore(playerAnswers, 0), 700);
     });
     it(`Should return 750, when the player answered 8 questions correctly,
         for 2 questions fastly, for 4 questions slowly, and had one live`, () => {
-      const userAnswers = [
+      const playerAnswers = [
         new Answer(false, 11),
         new Answer(false, 8),
         new Answer(true, 23),
@@ -63,7 +63,7 @@ describe(`Game logic tests`, () => {
         new Answer(true, 22),
         new Answer(true, 5)
       ];
-      assert.equal(calcGameScore(userAnswers, 1), 750);
+      assert.equal(calcGameScore(playerAnswers, 1), 750);
     });
   });
   describe(`Manage player lives function - calcLivesBalance`, () => {

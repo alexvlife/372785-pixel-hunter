@@ -1,5 +1,5 @@
 import {getClone} from "./utils";
-import {INITIAL_GAME_STATE} from "./game-config";
+import {AnswerTimeType, AnswerType} from "./game-config";
 
 export const AnswerScoreType = {
   CORRECT: 100,
@@ -35,7 +35,8 @@ export const switchGameLevel = (currentLevel) => {
 };
 
 export const calcLivesBalance = (currentLivesBalance, currentAnswer) => {
-  return (!currentAnswer.isCorrect) ? --currentLivesBalance : currentLivesBalance;
+  return (!currentAnswer.isCorrect || currentAnswer.time >= AnswerTimeType.LIMIT)
+    ? --currentLivesBalance : currentLivesBalance;
 };
 
 export const calcGameScore = (answers, currentLivesBalance) => {
@@ -58,13 +59,21 @@ export const getNewGameState = (currentGameState, currentAnswer) => {
   return newGameState;
 };
 
-export const goStatsScreen = (newGameState, questions) => {
+export const isGameEnded = (newGameState, questions) => {
   const isLastLevel = (newGameState.level === questions.length);
   return (isLastLevel || (newGameState.lives < 0));
 };
 
 export const getCorrectAnswerCount = (answers) => {
   return answers.filter((answer) => answer.isCorrect).length;
+};
+
+export const getFastAnswerCount = (answers) => {
+  return answers.filter((answer) => answer.type === AnswerType.FAST).length;
+};
+
+export const getSlowAnswerCount = (answers) => {
+  return answers.filter((answer) => answer.type === AnswerType.SLOW).length;
 };
 
 export const getTotalPoints = (gameResult) => {
@@ -75,13 +84,14 @@ export const getGameResults = (finalGameState) => {
   const gameResults = [
     {
       title: ResultTitleMap[ResultType.RIGHT_ANSWER],
+      type: ResultType.RIGHT_ANSWER,
       count: getCorrectAnswerCount(finalGameState.answers),
       points: AnswerScoreType.CORRECT,
     },
     {
       title: ResultTitleMap[ResultType.FAST_ANSWER],
       type: ResultType.FAST_ANSWER,
-      count: 0, // в текущем задании не требуется
+      count: getFastAnswerCount(finalGameState.answers),
       points: AnswerScoreType.FAST,
     },
     {
@@ -93,9 +103,8 @@ export const getGameResults = (finalGameState) => {
     {
       title: ResultTitleMap[ResultType.SLOW_ANSWER],
       type: ResultType.SLOW_ANSWER,
-      count: 0, // в текущем задании не требуется
+      count: getSlowAnswerCount(finalGameState.answers),
       points: AnswerScoreType.SLOW,
-      total: 0,
     },
   ];
   return gameResults;
@@ -106,8 +115,5 @@ export const getGameResultTotal = (gameResults) => {
     return sum + getTotalPoints(type);
   }, 0);
 
-  const isGamePassed = (gameResults[0].count > (GameLevel.MAX - INITIAL_GAME_STATE.lives));
-  const gameStatusTitle = (isGamePassed) ? `Победа!` : `Увы.. Попробуйте еще раз`;
-
-  return {totalPoints, isGamePassed, gameStatusTitle};
+  return totalPoints;
 };

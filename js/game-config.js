@@ -22,3 +22,7 @@ export const AnswerTimeType = {
   SLOW: 20,
   LIMIT: 30,
 };
+
+export const ONE_SECOND = 1000;
+
+export const EMPTY_ANSWER_DATA = ``;
