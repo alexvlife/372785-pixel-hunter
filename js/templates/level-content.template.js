@@ -1,7 +1,9 @@
+import {QuestionType} from "../game-config";
+
 const getLevelContentType1Template = (question) => {
   return `<form class="game__content game__content--wide">
             <div class="game__option">
-              <img src="${question.image.url}" alt="Option 1" width="705" height="455">
+              <img src="${question.images[0].url}" alt="Option 1" width="705" height="455">
               <label class="game__answer  game__answer--photo">
                 <input class="visually-hidden" name="question1" type="radio" value="photo">
                 <span>Фото</span>
@@ -48,9 +50,9 @@ const getLevelContentType3Template = (question) => {
 };
 
 const LevelContentTemplateMap = {
-  'one-image': getLevelContentType1Template,
-  'two-images': getLevelContentType2Template,
-  'three-images': getLevelContentType3Template,
+  [QuestionType.ONE_IMAGE]: getLevelContentType1Template,
+  [QuestionType.TWO_IMAGES]: getLevelContentType2Template,
+  [QuestionType.THREE_IMAGES]: getLevelContentType3Template,
 };
 
 export default LevelContentTemplateMap;

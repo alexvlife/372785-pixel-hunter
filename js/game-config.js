@@ -4,9 +4,9 @@ export const INITIAL_GAME_STATE = Object.freeze({
 });
 
 export const QuestionType = {
-  ONE_IMAGE: `one-image`,
-  TWO_IMAGES: `two-images`,
-  THREE_IMAGES: `three-images`,
+  ONE_IMAGE: `tinder-like`,
+  TWO_IMAGES: `two-of-two`,
+  THREE_IMAGES: `one-of-three`,
 };
 
 export const AnswerType = {

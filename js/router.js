@@ -5,6 +5,7 @@ import ScreenRulesPresenter from "./presenters/screen-rules-presenter";
 import ScreenGamePresenter from "./presenters/screen-game-presenter";
 import ScreenStatsPresenter from "./presenters/screen-stats-presenter";
 import GameModel from "./game-model";
+import {adaptServerQuestionsData} from "./game-logic";
 
 const checkStatus = (response) => {
   if (response.status >= 200 && response.status < 300) {
@@ -24,7 +25,7 @@ export default class Router {
       then(checkStatus).
       then((response) => response.json()).
       then((data) => {
-        questionsData = data;
+        questionsData = adaptServerQuestionsData(data);
       }).
       then(() => Router.showScreenGreeting()).
       catch(Router.showScreenError);
