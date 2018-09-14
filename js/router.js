@@ -5,7 +5,8 @@ import ScreenRulesPresenter from "./presenters/screen-rules-presenter";
 import ScreenGamePresenter from "./presenters/screen-game-presenter";
 import ScreenStatsPresenter from "./presenters/screen-stats-presenter";
 import GameModel from "./game-model";
-import {adaptServerQuestionsData} from "./game-logic";
+import {adaptServerQuestionsData} from "./data-adapter";
+
 
 const checkStatus = (response) => {
   if (response.status >= 200 && response.status < 300) {
