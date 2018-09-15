@@ -44,7 +44,6 @@ const adaptRightAnswerDataOfTypeTwo = (questionData) => {
 
 const adaptRightAnswerDataOfTypeThree = (questionData) => {
   const currentAnswerType = questionData.question.split(` `)[1];
-
   const rightAnswerData = questionData.answers.filter((answer) => {
     return answer.type === RightAnswerTypeMap[currentAnswerType];
   });

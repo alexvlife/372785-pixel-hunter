@@ -1,11 +1,16 @@
+const END_TIME_VALUE = 0;
+
+export const TIME_TO_FLASH = 5;
+
 export const makeTimer = (limit) => {
   return {
     timeLeft: limit,
     tick() {
-      if (this.timeLeft > 0) {
-        --this.timeLeft;
+      --this.timeLeft;
+      if (this.timeLeft <= TIME_TO_FLASH) {
+        this.onTimeToFlash();
       }
-      if (this.timeLeft === 0) {
+      if (this.timeLeft === END_TIME_VALUE) {
         this.onTimeElapsed();
       }
     },
@@ -13,6 +18,8 @@ export const makeTimer = (limit) => {
       this.timeLeft = limit;
     },
     onTimeElapsed() {
-    }
+    },
+    onTimeToFlash() {
+    },
   };
 };

@@ -5,34 +5,23 @@ import ScreenRulesPresenter from "./presenters/screen-rules-presenter";
 import ScreenGamePresenter from "./presenters/screen-game-presenter";
 import ScreenStatsPresenter from "./presenters/screen-stats-presenter";
 import GameModel from "./game-model";
-import {adaptServerQuestionsData} from "./data-adapter";
-
-const HttpStatusCode = {
-  OK: 200,
-  MULTIPLE_CHOICES: 300,
-};
+import GameDataLoader from "./game-data-loader";
 
 let questionsData;
-
-const checkStatus = (response) => {
-  if (response.status >= HttpStatusCode.OK && response.status < HttpStatusCode.MULTIPLE_CHOICES) {
-    return response;
-  }
-  throw new Error(`${response.status}: ${response.statusText}`);
-};
 
 export default class Router {
   static showScreenIntro() {
     const screenIntro = new ScreenIntroPresenter();
     screenIntro.show();
-    window.fetch(`https://es.dump.academy/pixel-hunter/questions`).
-      then(checkStatus).
-      then((response) => response.json()).
-      then((data) => {
-        questionsData = adaptServerQuestionsData(data);
-      }).
-      then(() => Router.showScreenGreeting()).
-      catch(Router.showScreenError);
+    GameDataLoader.loadData().
+    then((data) => {
+      questionsData = data;
+      GameDataLoader.loadQuestionImages(questionsData);
+    }).
+    catch(Router.showScreenError);
+    window.onload = () => {
+      Router.showScreenGreeting();
+    };
   }
 
   static showScreenGreeting() {
@@ -51,9 +40,16 @@ export default class Router {
     game.init();
   }
 
-  static showScreenStats(finalGameState) {
-    const screenStatsLevel = new ScreenStatsPresenter(finalGameState);
-    screenStatsLevel.show();
+  static showScreenStats(gameModel) {
+    const playerName = gameModel.playerName;
+    const finalGameState = gameModel.currentState;
+    GameDataLoader.saveResults(finalGameState, playerName).
+      then(() => GameDataLoader.loadResults(playerName)).
+      then((data) => {
+        const screenStatsLevel = new ScreenStatsPresenter(data);
+        screenStatsLevel.show();
+      }).
+      catch(Router.showScreenError);
   }
 
   static showScreenError(error) {
