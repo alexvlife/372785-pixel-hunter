@@ -1,5 +1,7 @@
 import {getClone} from "./utils";
-import {AnswerTimeType, AnswerType} from "./game-config";
+import {
+  AnswerTimeType,
+  AnswerType} from "./game-config";
 
 export const AnswerScoreType = {
   CORRECT: 100,

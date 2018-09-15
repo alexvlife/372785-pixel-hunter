@@ -7,7 +7,7 @@ const getPlayerAnswerType1 = () => {
 
 const getPlayerAnswerType2 = () => {
   const playerAnswers = document.querySelectorAll(`input[type=radio]:checked`);
-  return (playerAnswers.length === 2) ? (playerAnswers[0].value + `-` + playerAnswers[1].value) : false;
+  return (playerAnswers.length === 2) ? (`${playerAnswers[0].value}-${playerAnswers[1].value}`) : false;
 };
 
 const getPlayerAnswerType3 = (evt) => {
