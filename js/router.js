@@ -6,7 +6,6 @@ import ScreenGamePresenter from "./presenters/screen-game-presenter";
 import ScreenStatsPresenter from "./presenters/screen-stats-presenter";
 import GameModel from "./game-model";
 import GameDataLoader from "./game-data-loader";
-import {loadQuestionImages} from "./game-images-loader";
 
 let questionsData;
 
@@ -17,7 +16,7 @@ export default class Router {
     GameDataLoader.loadData().
     then((data) => {
       questionsData = data;
-      loadQuestionImages(questionsData);
+      GameDataLoader.loadQuestionImages(questionsData);
     }).
     catch(Router.showScreenError);
     window.onload = () => {
