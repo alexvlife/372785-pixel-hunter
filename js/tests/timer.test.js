@@ -20,7 +20,7 @@ describe(`Timer tests`, () => {
     myTimer.onTimeElapsed = () => {
       timeElapsed = true;
     };
-    for (let i = 1; i <= 30; i++) {
+    for (let i = 0; i <= 30; i++) {
       myTimer.tick();
     }
     assert.equal(timeElapsed, true);
