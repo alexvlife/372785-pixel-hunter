@@ -11,7 +11,7 @@ const checkStatus = (response) => {
   throw new Error(`${response.status}: ${response.statusText}`);
 };
 
-export default class Loader {
+export default class GameDataLoader {
   static loadData() {
     return fetch(`${SERVER_URL}/questions`).then(checkStatus).then(toJSON).then(adaptServerQuestionsData);
   }

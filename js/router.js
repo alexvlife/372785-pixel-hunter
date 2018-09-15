@@ -5,7 +5,8 @@ import ScreenRulesPresenter from "./presenters/screen-rules-presenter";
 import ScreenGamePresenter from "./presenters/screen-game-presenter";
 import ScreenStatsPresenter from "./presenters/screen-stats-presenter";
 import GameModel from "./game-model";
-import Loader from "./loader";
+import GameDataLoader from "./game-data-loader";
+import {loadQuestionImages} from "./game-images-loader";
 
 let questionsData;
 
@@ -13,12 +14,15 @@ export default class Router {
   static showScreenIntro() {
     const screenIntro = new ScreenIntroPresenter();
     screenIntro.show();
-    Loader.loadData().
+    GameDataLoader.loadData().
     then((data) => {
       questionsData = data;
+      loadQuestionImages(questionsData);
     }).
-    then(() => Router.showScreenGreeting()).
     catch(Router.showScreenError);
+    window.onload = () => {
+      Router.showScreenGreeting();
+    };
   }
 
   static showScreenGreeting() {
@@ -40,10 +44,8 @@ export default class Router {
   static showScreenStats(gameModel) {
     const playerName = gameModel.playerName;
     const finalGameState = gameModel.currentState;
-
-
-    Loader.saveResults(finalGameState, playerName).
-      then(() => Loader.loadResults(playerName)).
+    GameDataLoader.saveResults(finalGameState, playerName).
+      then(() => GameDataLoader.loadResults(playerName)).
       then((data) => {
         const screenStatsLevel = new ScreenStatsPresenter(data);
         screenStatsLevel.show();
