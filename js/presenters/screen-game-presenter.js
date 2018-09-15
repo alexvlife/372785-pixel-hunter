@@ -1,5 +1,5 @@
 import AbstractPresenter from './abstract-presenter.js';
-import ScreenGameView from '../view/screen-game-view.js';
+import ScreenGameView from '../views/screen-game-view.js';
 import Router from '../router.js';
 import {isGameEnded} from '../game-logic.js';
 import {EMPTY_ANSWER_DATA, ONE_SECOND} from '../game-config.js';
@@ -7,7 +7,7 @@ import {TIME_TO_FLASH} from '../timer.js';
 
 const FLASH_TIMEOUT = 500;
 
-class ScreenGamePresenter extends AbstractPresenter {
+export default class ScreenGamePresenter extends AbstractPresenter {
   constructor(gameModel) {
     super();
     this.gameModel = gameModel;
@@ -87,5 +87,3 @@ class ScreenGamePresenter extends AbstractPresenter {
     Router.showScreenGreeting();
   }
 }
-
-export default ScreenGamePresenter;
