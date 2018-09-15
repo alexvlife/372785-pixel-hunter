@@ -1,9 +1,9 @@
-import {AnswerTimeType, EMPTY_ANSWER_DATA, INITIAL_GAME_STATE} from "./game-config";
-import {checkPlayerAnswer, PlayerAnswerTypeMap, saveAnswerData} from "./answer-logic";
-import {getNewGameState} from "./game-logic";
-import {makeTimer} from "./timer";
+import {AnswerTimeType, EMPTY_ANSWER_DATA, INITIAL_GAME_STATE} from "../game-config";
+import {checkPlayerAnswer, PlayerAnswerTypeMap, saveAnswerData} from "../answer-logic";
+import {getNewGameState} from "../game-logic";
+import {makeTimer} from "../timer";
 
-class GameModel {
+export default class GameModel {
   constructor(playerName, questions) {
     this.playerName = playerName;
     this.questions = questions;
@@ -41,5 +41,3 @@ class GameModel {
   }
 
 }
-
-export default GameModel;

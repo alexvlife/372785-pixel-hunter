@@ -37,7 +37,7 @@ export default class ScreenGameView extends AbstractView {
   }
 
   updateGameTimer(timeLeft) {
-    this.gameTimerElement.innerHTML = timeLeft;
+    this.gameTimerElement.textContent = timeLeft;
   }
 
   switchOpacityOfElement() {

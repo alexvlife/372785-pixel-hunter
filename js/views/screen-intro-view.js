@@ -23,5 +23,4 @@ export default class ScreenIntroView extends AbstractView {
 
   onGoNextButtonClick() {
   }
-
 }

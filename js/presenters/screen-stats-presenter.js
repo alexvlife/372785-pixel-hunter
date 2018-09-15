@@ -1,8 +1,8 @@
 import AbstractPresenter from './abstract-presenter.js';
-import ScreenStatsView from '../view/screen-stats-view.js';
+import ScreenStatsView from '../views/screen-stats-view.js';
 import Router from '../router.js';
 
-class ScreenStatsPresenter extends AbstractPresenter {
+export default class ScreenStatsPresenter extends AbstractPresenter {
   constructor(finalGameState) {
     super();
     this.view = new ScreenStatsView(finalGameState);
@@ -13,5 +13,3 @@ class ScreenStatsPresenter extends AbstractPresenter {
     Router.showScreenGreeting();
   }
 }
-
-export default ScreenStatsPresenter;

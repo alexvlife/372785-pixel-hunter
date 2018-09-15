@@ -4,7 +4,7 @@ import ScreenGreetingPresenter from "./presenters/screen-greeting-presenter";
 import ScreenRulesPresenter from "./presenters/screen-rules-presenter";
 import ScreenGamePresenter from "./presenters/screen-game-presenter";
 import ScreenStatsPresenter from "./presenters/screen-stats-presenter";
-import GameModel from "./game-model";
+import GameModel from "./models/game-model";
 import GameDataLoader from "./game-data-loader";
 
 let questionsData;
