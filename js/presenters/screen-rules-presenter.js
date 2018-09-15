@@ -1,8 +1,8 @@
 import AbstractPresenter from './abstract-presenter.js';
-import ScreenRulesView from '../view/screen-rules-view.js';
+import ScreenRulesView from '../views/screen-rules-view.js';
 import Router from '../router.js';
 
-class ScreenRulesPresenter extends AbstractPresenter {
+export default class ScreenRulesPresenter extends AbstractPresenter {
   constructor() {
     super();
     this.view = new ScreenRulesView();
@@ -37,5 +37,3 @@ class ScreenRulesPresenter extends AbstractPresenter {
   }
 
 }
-
-export default ScreenRulesPresenter;

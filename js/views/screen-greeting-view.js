@@ -39,5 +39,4 @@ export default class ScreenGreetingView extends AbstractView {
 
   onGoNextButtonClick() {
   }
-
 }

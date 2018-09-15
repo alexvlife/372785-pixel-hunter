@@ -30,7 +30,7 @@ export const ResultTitleMap = {
 };
 
 export const switchGameLevel = (currentLevel) => {
-  if (typeof currentLevel !== `number` || currentLevel === GameLevel.MAX) {
+  if (currentLevel === GameLevel.MAX) {
     return currentLevel;
   }
   return ++currentLevel;
