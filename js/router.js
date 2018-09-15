@@ -17,7 +17,8 @@ export default class Router {
     then((data) => {
       questionsData = data;
     }).
-    then(() => Router.showScreenGreeting());
+    then(() => Router.showScreenGreeting()).
+    catch(Router.showScreenError);
   }
 
   static showScreenGreeting() {
@@ -46,7 +47,8 @@ export default class Router {
       then((data) => {
         const screenStatsLevel = new ScreenStatsPresenter(data);
         screenStatsLevel.show();
-      });
+      }).
+      catch(Router.showScreenError);
   }
 
   static showScreenError(error) {

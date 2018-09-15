@@ -2,6 +2,11 @@ import AbstractView from "./abstract-view";
 import getHeaderTemplate from "../templates/header.template";
 import getLevelTemplate from "../templates/level.template";
 
+const ElementOpacityValue = {
+  MAX: 1,
+  MIN: 0,
+};
+
 export default class ScreenGameView extends AbstractView {
 
   constructor(gameState, currentQuestion) {
@@ -35,12 +40,10 @@ export default class ScreenGameView extends AbstractView {
     this.gameTimerElement.innerHTML = timeLeft;
   }
 
-  startFlash() {
-    this.gameTimerElement.style.opacity ^= 1;
-  }
-
-  stopFlash() {
-    clearTimeout(this._flashTimeout);
+  switchOpacityOfElement() {
+    this.gameTimerElement.style.opacity = (+this.gameTimerElement.style.opacity === ElementOpacityValue.MAX)
+      ? ElementOpacityValue.MIN
+      : ElementOpacityValue.MAX;
   }
 
   onAnswer() {
