@@ -15,6 +15,10 @@ export default class ScreenGameView extends AbstractView {
       + getLevelTemplate(this.gameState.answers, this.currentQuestion);
   }
 
+  get gameTimerElement() {
+    return this.element.querySelector(`.game__timer`);
+  }
+
   bind() {
     const goBackButton = this.element.querySelector(`.back`);
 
@@ -28,8 +32,15 @@ export default class ScreenGameView extends AbstractView {
   }
 
   updateGameTimer(timeLeft) {
-    const gameTimerElement = this.element.querySelector(`.game__timer`);
-    gameTimerElement.innerHTML = timeLeft;
+    this.gameTimerElement.innerHTML = timeLeft;
+  }
+
+  startFlash() {
+    this.gameTimerElement.style.opacity ^= 1;
+  }
+
+  stopFlash() {
+    clearTimeout(this._flashTimeout);
   }
 
   onAnswer() {

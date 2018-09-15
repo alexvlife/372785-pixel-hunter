@@ -4,11 +4,14 @@ import Router from '../router.js';
 import {isGameEnded} from '../game-logic.js';
 import {EMPTY_ANSWER_DATA, ONE_SECOND} from '../game-config.js';
 
+const TIME_TO_FLASH = 5;
+
 class ScreenGamePresenter extends AbstractPresenter {
   constructor(gameModel) {
     super();
     this.gameModel = gameModel;
     this.gameModel.timer.onTimeElapsed = () => {
+      this.view.stopFlash();
       this.gameModel.playerAnswer = EMPTY_ANSWER_DATA;
       this.gameModel.saveAnswerData();
       this.goNextScreen();
@@ -25,9 +28,13 @@ class ScreenGamePresenter extends AbstractPresenter {
   }
 
   startTimer() {
+
     this._timeout = setTimeout(() => {
       this.gameModel.timer.tick();
       this.view.updateGameTimer(this.gameModel.timer.timeLeft);
+      if (this.gameModel.timer.timeLeft <= TIME_TO_FLASH) {
+        this.view.startFlash();
+      }
       this.startTimer();
     }, ONE_SECOND);
   }
@@ -39,7 +46,7 @@ class ScreenGamePresenter extends AbstractPresenter {
   goNextScreen() {
     if (isGameEnded(this.gameModel.currentState, this.gameModel.questions)) {
       this.stopTimer();
-      Router.showScreenStats(this.gameModel.currentState);
+      Router.showScreenStats(this.gameModel);
     } else {
       this.gameModel.timer.reset();
       this.view = this.generateView();
