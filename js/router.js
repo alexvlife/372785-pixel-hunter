@@ -7,16 +7,19 @@ import ScreenStatsPresenter from "./presenters/screen-stats-presenter";
 import GameModel from "./game-model";
 import {adaptServerQuestionsData} from "./data-adapter";
 
-
-const checkStatus = (response) => {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  } else {
-    throw new Error(`${response.status}: ${response.statusText}`);
-  }
+const HttpStatusCode = {
+  OK: 200,
+  MULTIPLE_CHOICES: 300,
 };
 
 let questionsData;
+
+const checkStatus = (response) => {
+  if (response.status >= HttpStatusCode.OK && response.status < HttpStatusCode.MULTIPLE_CHOICES) {
+    return response;
+  }
+  throw new Error(`${response.status}: ${response.statusText}`);
+};
 
 export default class Router {
   static showScreenIntro() {

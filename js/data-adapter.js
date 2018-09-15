@@ -39,7 +39,7 @@ const adaptRightAnswerDataOfTypeOne = (questionData) => {
 };
 
 const adaptRightAnswerDataOfTypeTwo = (questionData) => {
-  return ImageTypeMap[questionData.answers[0].type] + `-` + ImageTypeMap[questionData.answers[1].type];
+  return `${ImageTypeMap[questionData.answers[0].type]}-${ImageTypeMap[questionData.answers[1].type]}`;
 };
 
 const adaptRightAnswerDataOfTypeThree = (questionData) => {
