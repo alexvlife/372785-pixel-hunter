@@ -16,10 +16,14 @@ export default class Router {
     GameDataLoader.loadData().
     then((data) => {
       questionsData = data;
-      GameDataLoader.loadQuestionImages(questionsData);
     }).
     catch(Router.showScreenError);
     window.onload = () => {
+      questionsData.forEach((question) => {
+        question.images.forEach((image) => {
+          image.resize();
+        });
+      });
       Router.showScreenGreeting();
     };
   }

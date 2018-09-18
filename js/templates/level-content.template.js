@@ -3,7 +3,11 @@ import {QuestionType} from "../game-config";
 const getLevelContentType1Template = (question) => {
   return `<form class="game__content game__content--wide">
             <div class="game__option">
-              <img src="${question.images[0].url}" alt="Option 1" width="705" height="455">
+              <img
+                src="${question.images[0].data.src}"
+                alt="Option 1"
+                width="${question.images[0].size.width}"
+                height="${question.images[0].size.height}">
               <label class="game__answer  game__answer--photo">
                 <input class="visually-hidden" name="question1" type="radio" value="photo">
                 <span>Фото</span>
@@ -20,7 +24,11 @@ const getLevelContentType2Template = (question) => {
   const contentTemplates = [];
   question.images.forEach((image, index) => {
     contentTemplates.push(`<div class="game__option">
-                              <img src="${image.url}" alt="Option ${index + 1}" width="468" height="458">
+                              <img
+                                src="${image.data.src}"
+                                alt="Option ${index + 1}"
+                                width="${image.size.width}"
+                                height="${image.size.height}">
                               <label class="game__answer game__answer--photo">
                                 <input class="visually-hidden" name="question${index + 1}" type="radio" value="photo">
                                 <span>Фото</span>
@@ -40,7 +48,11 @@ const getLevelContentType3Template = (question) => {
   const contentTemplates = [];
   question.images.forEach((image, index) => {
     contentTemplates.push(`<div class="game__option">
-                              <img src="${image.url}" alt="Option ${index + 1}" width="304" height="455">
+                              <img
+                                src="${image.data.src}"
+                                alt="Option ${index + 1}"
+                                width="${image.size.width}"
+                                height="${image.size.height}">
                             </div>`
     );
   });
