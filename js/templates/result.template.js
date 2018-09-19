@@ -17,15 +17,11 @@ const getResultTemplate = (result) => {
 };
 
 const getResultTemplates = (gameResults) => {
-  const resultTemplates = [];
-
-  gameResults.forEach((result) => {
-    if (result.type !== ResultType.RIGHT_ANSWER && getTotalPoints(result) !== 0) {
-      resultTemplates.push(getResultTemplate(result));
-    }
+  return gameResults.filter((result) => {
+    return (result.type !== ResultType.RIGHT_ANSWER && getTotalPoints(result) !== 0);
+  }).map((result) => {
+    return getResultTemplate(result);
   });
-
-  return resultTemplates;
 };
 
 const getTotalPointsTemplate = (isGamePassed, gameResults) => {

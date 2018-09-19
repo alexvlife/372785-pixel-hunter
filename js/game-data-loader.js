@@ -16,15 +16,6 @@ export default class GameDataLoader {
     return fetch(`${SERVER_URL}/questions`).then(checkStatus).then(toJSON).then(adaptServerQuestionsData);
   }
 
-  static loadQuestionImages(adaptQuestionsData) {
-    adaptQuestionsData.forEach((question) => {
-      question.images.forEach((image) => {
-        const questionImage = new Image();
-        questionImage.src = image.url;
-      });
-    });
-  }
-
   static loadResults(playerName) {
     return fetch(`${SERVER_URL}/stats/${APP_ID}-${playerName}`).then(checkStatus).then(toJSON);
   }

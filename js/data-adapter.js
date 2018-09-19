@@ -1,4 +1,20 @@
 import {QuestionType} from "./game-config";
+import resize from "./resize";
+
+export const ImageSizeMap = {
+  [QuestionType.ONE_IMAGE]: {
+    width: 705,
+    height: 455,
+  },
+  [QuestionType.TWO_IMAGES]: {
+    width: 468,
+    height: 458,
+  },
+  [QuestionType.THREE_IMAGES]: {
+    width: 304,
+    height: 455,
+  },
+};
 
 export const ImageTypeMap = {
   'painting': `paint`,
@@ -11,25 +27,30 @@ export const RightAnswerTypeMap = {
 };
 
 export const adaptServerQuestionsData = (serverQuestionsData) => {
-  return serverQuestionsData.map((question) => {
-    return adaptQuestionData(question);
+  return serverQuestionsData.map((questionData) => {
+    return {
+      type: questionData.type,
+      description: questionData.question,
+      images: adaptQuestionImagesData(questionData),
+      rightAnswer: RightAnswerDataTypeMap[questionData.type](questionData),
+    };
   });
 };
 
-const adaptQuestionData = (questionData) => {
-  return {
-    type: questionData.type,
-    description: questionData.question,
-    images: adaptQuestionImagesData(questionData.answers),
-    rightAnswer: RightAnswerDataTypeMap[questionData.type](questionData),
-  };
-};
-
-const adaptQuestionImagesData = (imagesData) => {
-  return imagesData.map((answer) => {
+const adaptQuestionImagesData = (questionData) => {
+  return questionData.answers.map((answer) => {
+    const questionImage = new Image();
+    questionImage.src = answer.image.url;
     return {
-      url: answer.image.url,
+      data: questionImage,
       type: ImageTypeMap[answer.type],
+      resize() {
+        const realImageSize = {
+          width: this.data.width,
+          height: this.data.height,
+        };
+        this.size = resize(ImageSizeMap[questionData.type], realImageSize);
+      }
     };
   });
 };
