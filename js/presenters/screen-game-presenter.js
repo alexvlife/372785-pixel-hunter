@@ -1,9 +1,11 @@
 import AbstractPresenter from './abstract-presenter.js';
+import ModalView from '../views/modal.view.js';
 import ScreenGameView from '../views/screen-game-view.js';
 import Router from '../router.js';
 import {isGameEnded} from '../game-logic.js';
 import {EMPTY_ANSWER_DATA, ONE_SECOND} from '../game-config.js';
 import {TIME_TO_FLASH} from '../timer.js';
+import {hideModal, showModal} from '../utilsForBrowser.js';
 
 const FLASH_TIMEOUT = 500;
 
@@ -22,6 +24,14 @@ export default class ScreenGamePresenter extends AbstractPresenter {
     };
 
     this.view = this.generateView();
+
+    this.modalView = new ModalView();
+    this.modalView.onCloseModalButtonClick = () => this.continueGame();
+    this.modalView.onCancelButtonClick = () => this.continueGame();
+    this.modalView.onConfirmButtonClick = () => this.finishGame();
+    this.modalView.show = () => {
+      showModal(this.modalView.element);
+    };
 
     this._timeout = null;
   }
@@ -83,8 +93,18 @@ export default class ScreenGamePresenter extends AbstractPresenter {
     return view;
   }
 
+  finishGame() {
+    this.modalView.removeEventListeners();
+    Router.showScreenGreeting();
+  }
+
+  continueGame() {
+    this.startTimer();
+    hideModal(this.modalView.element);
+  }
+
   goBackScreen() {
     this.stopTimer();
-    Router.showScreenGreeting();
+    this.modalView.show();
   }
 }
