@@ -24,6 +24,10 @@ export default class ScreenGameView extends AbstractView {
     return this.element.querySelector(`.game__timer`);
   }
 
+  get gameQuestionElements() {
+    return this.element.querySelectorAll(`.game__option`);
+  }
+
   bind() {
     const goBackButton = this.element.querySelector(`.back`);
 
@@ -31,9 +35,11 @@ export default class ScreenGameView extends AbstractView {
       this.onGoBackButtonClick();
     });
 
-    this._element.addEventListener(`click`, (evt) => {
-      this.onAnswer(evt);
-    });
+    for (let questionElement of this.gameQuestionElements) {
+      questionElement.addEventListener(`click`, (evt) => {
+        this.onAnswer(evt);
+      });
+    }
   }
 
   updateGameTimer(timeLeft) {
