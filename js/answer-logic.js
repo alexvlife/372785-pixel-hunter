@@ -11,7 +11,7 @@ const getPlayerAnswerType2 = () => {
 };
 
 const getPlayerAnswerType3 = (evt) => {
-  const playerAnswer = evt.target.querySelector(`img`).src;
+  const playerAnswer = evt.target.src || evt.target.querySelector(`img`).src;
   return (playerAnswer) ? playerAnswer : false;
 };
 
