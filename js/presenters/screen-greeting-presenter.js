@@ -10,6 +10,7 @@ export default class ScreenGreetingPresenter extends AbstractPresenter {
   }
 
   goNextScreen() {
+    this.view.removeEventListeners();
     Router.showScreenRules();
   }
 }

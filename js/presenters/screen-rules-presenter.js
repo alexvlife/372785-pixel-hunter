@@ -29,10 +29,12 @@ export default class ScreenRulesPresenter extends AbstractPresenter {
   }
 
   goScreenGame(playerName) {
+    this.view.removeEventListeners();
     Router.showScreenGame(playerName);
   }
 
   goBackScreen() {
+    this.view.removeEventListeners();
     Router.showScreenGreeting();
   }
 
