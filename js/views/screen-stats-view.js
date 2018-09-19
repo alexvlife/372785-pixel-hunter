@@ -13,13 +13,16 @@ export default class ScreenStatsView extends AbstractView {
     return getHeaderTemplate() + getResultTemplate(this.finalGameState);
   }
 
+  get goBackButton() {
+    return this.element.querySelector(`.back`);
+  }
+
   bind() {
-    const goBackButton = this.element.querySelector(`.back`);
+    this.goBackButton.addEventListener(`click`, this.onGoBackButtonClick);
+  }
 
-    goBackButton.addEventListener(`click`, () => {
-      this.onGoBackButtonClick();
-    });
-
+  removeEventListeners() {
+    this.goBackButton.removeEventListener(`click`, this.onGoBackButtonClick);
   }
 
   onGoBackButtonClick() {

@@ -10,6 +10,7 @@ export default class ScreenStatsPresenter extends AbstractPresenter {
   }
 
   goBackScreen() {
+    this.view.removeEventListeners();
     Router.showScreenGreeting();
   }
 }

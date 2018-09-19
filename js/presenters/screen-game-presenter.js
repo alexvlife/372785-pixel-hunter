@@ -84,6 +84,7 @@ export default class ScreenGamePresenter extends AbstractPresenter {
   }
 
   goBackScreen() {
+    this.stopTimer();
     Router.showScreenGreeting();
   }
 }
