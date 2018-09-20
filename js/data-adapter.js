@@ -41,7 +41,7 @@ const adaptQuestionImagesData = (questionData) => {
   return questionData.answers.map((answer) => {
     const questionImage = new Image();
     questionImage.src = answer.image.url;
-    return {
+    const questionImageData = {
       data: questionImage,
       type: ImageTypeMap[answer.type],
       resize() {
@@ -52,6 +52,10 @@ const adaptQuestionImagesData = (questionData) => {
         this.size = resize(ImageSizeMap[questionData.type], realImageSize);
       }
     };
+    questionImage.onload = () => {
+      questionImageData.resize();
+    };
+    return questionImageData;
   });
 };
 

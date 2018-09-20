@@ -19,11 +19,6 @@ export default class Router {
     }).
     catch(Router.showScreenError);
     window.onload = () => {
-      questionsData.forEach((question) => {
-        question.images.forEach((image) => {
-          image.resize();
-        });
-      });
       Router.showScreenGreeting();
     };
   }
