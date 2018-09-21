@@ -36,7 +36,7 @@ export default class ScreenGameView extends AbstractView {
       this.onGoBackButtonClick();
     });
 
-    for (let questionElement of this.gameQuestionElements) {
+    for (const questionElement of this.gameQuestionElements) {
       questionElement.addEventListener(`click`, (evt) => {
         this.onAnswer(evt);
       });

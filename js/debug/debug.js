@@ -25,7 +25,7 @@ const changeStyleDebugElementType2 = (questionElements, rightAnswer) => {
 };
 
 const changeStyleDebugElementType3 = (questionElements, rightAnswer) => {
-  for (let questionElement of questionElements) {
+  for (const questionElement of questionElements) {
     const debugElement = questionElement;
     if (debugElement.firstElementChild.src === rightAnswer) {
       addStyleForElement(debugElement);
