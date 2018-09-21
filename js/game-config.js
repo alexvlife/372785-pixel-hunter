@@ -1,3 +1,5 @@
+export const DEBUG = true;
+
 export const INITIAL_GAME_STATE = Object.freeze({
   lives: 3,
   level: 0,

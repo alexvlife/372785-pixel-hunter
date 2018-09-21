@@ -1,6 +1,7 @@
 import AbstractView from "./abstract-view";
 import getHeaderTemplate from "../templates/header.template";
 import getLevelTemplate from "../templates/level.template";
+import {ElementWithDebugStyleMap} from "../debug/debug";
 
 const ElementOpacityValue = {
   MAX: 1,
@@ -50,6 +51,10 @@ export default class ScreenGameView extends AbstractView {
     this.gameTimerElement.style.opacity = (+this.gameTimerElement.style.opacity === ElementOpacityValue.MAX)
       ? ElementOpacityValue.MIN
       : ElementOpacityValue.MAX;
+  }
+
+  onDebugMode() {
+    ElementWithDebugStyleMap[this.currentQuestion.type](this.gameQuestionElements, this.currentQuestion.rightAnswer);
   }
 
   onAnswer() {

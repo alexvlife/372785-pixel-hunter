@@ -3,7 +3,7 @@ import ModalView from '../views/modal.view.js';
 import ScreenGameView from '../views/screen-game-view.js';
 import Router from '../router.js';
 import {isGameEnded} from '../game-logic.js';
-import {EMPTY_ANSWER_DATA, ONE_SECOND} from '../game-config.js';
+import {DEBUG, EMPTY_ANSWER_DATA, ONE_SECOND} from '../game-config.js';
 import {TIME_TO_FLASH} from '../timer.js';
 import {hideModal, showModal} from '../utilsForBrowser.js';
 
@@ -90,6 +90,9 @@ export default class ScreenGamePresenter extends AbstractPresenter {
         this.goNextScreen();
       }
     };
+    if (DEBUG === true) {
+      view.onDebugMode();
+    }
     return view;
   }
 
