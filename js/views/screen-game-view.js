@@ -53,7 +53,7 @@ export default class ScreenGameView extends AbstractView {
       : ElementOpacityValue.MAX;
   }
 
-  onDebugMode() {
+  enableDebugMode() {
     ElementWithDebugStyleMap[this.currentQuestion.type](this.gameQuestionElements, this.currentQuestion.rightAnswer);
   }
 

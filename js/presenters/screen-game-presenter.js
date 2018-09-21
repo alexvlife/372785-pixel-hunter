@@ -90,8 +90,8 @@ export default class ScreenGamePresenter extends AbstractPresenter {
         this.goNextScreen();
       }
     };
-    if (DEBUG === true) {
-      view.onDebugMode();
+    if (DEBUG) {
+      view.enableDebugMode();
     }
     return view;
   }
