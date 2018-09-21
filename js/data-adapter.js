@@ -1,5 +1,13 @@
 import {QuestionType} from "./game-config";
 import resize from "./resize";
+import Router from "./router";
+
+const getErrorAtLoadImage = (imageUrl) => {
+  return {
+    name: `Не удалось загрузить картинку`,
+    message: imageUrl,
+  };
+};
 
 export const ImageSizeMap = {
   [QuestionType.ONE_IMAGE]: {
@@ -54,6 +62,10 @@ const adaptQuestionImagesData = (questionData) => {
     };
     questionImage.onload = () => {
       questionImageData.resize();
+    };
+    questionImage.onerror = () => {
+      const error = getErrorAtLoadImage(answer.image.url);
+      Router.showScreenError(error);
     };
     return questionImageData;
   });

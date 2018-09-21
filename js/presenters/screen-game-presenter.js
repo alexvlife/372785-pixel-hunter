@@ -1,5 +1,5 @@
 import AbstractPresenter from './abstract-presenter.js';
-import ModalView from '../views/modal.view.js';
+import ModalView from '../views/modal-view.js';
 import ScreenGameView from '../views/screen-game-view.js';
 import Router from '../router.js';
 import {isGameEnded} from '../game-logic.js';

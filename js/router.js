@@ -1,8 +1,8 @@
 import ScreenErrorPresenter from "./presenters/screen-error-presenter";
-import ScreenIntroPresenter from "./presenters/screen-intro-presenter";
+import ScreenGamePresenter from "./presenters/screen-game-presenter";
 import ScreenGreetingPresenter from "./presenters/screen-greeting-presenter";
 import ScreenRulesPresenter from "./presenters/screen-rules-presenter";
-import ScreenGamePresenter from "./presenters/screen-game-presenter";
+import ScreenStartPresenter from "./presenters/screen-start-presenter";
 import ScreenStatsPresenter from "./presenters/screen-stats-presenter";
 import GameModel from "./models/game-model";
 import GameDataLoader from "./game-data-loader";
@@ -10,16 +10,16 @@ import GameDataLoader from "./game-data-loader";
 let questionsData;
 
 export default class Router {
-  static showScreenIntro() {
-    const screenIntro = new ScreenIntroPresenter();
-    screenIntro.show();
+  static showScreenStart() {
+    const screenGreeting = new ScreenStartPresenter();
+    screenGreeting.show();
     GameDataLoader.loadData().
     then((data) => {
       questionsData = data;
     }).
     catch(Router.showScreenError);
     window.onload = () => {
-      Router.showScreenGreeting();
+      screenGreeting.onDataLoad();
     };
   }
 
